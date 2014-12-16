@@ -2,7 +2,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class FeatureShowcase {
+public class FeatureShowcaseAsTest {
 
     @Test
     public void functionalInterfaceMustHaveOnlyOneAbstractMethod() {

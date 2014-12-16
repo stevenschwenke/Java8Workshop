@@ -10,5 +10,7 @@ public interface SimpleFunctionalInterface {
     // But if there's a default implementation, it's alright:
     default public String returnQuestionTo42() {
         return "UH-OH";
-    };
+    }
+
+    ;
 }
