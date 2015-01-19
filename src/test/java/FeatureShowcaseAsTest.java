@@ -1,9 +1,6 @@
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
@@ -218,6 +215,14 @@ public class FeatureShowcaseAsTest {
         // That is the same as above:
         System.out.println("\n2nd stream:");
         Stream.generate(Math::random).limit(3).sorted().forEach((x) -> System.out.println(x));
+    }
+
+    @Test
+    public void splittableRandom() {
+        // new class for creating streams with random numbers:
+        DoubleStream randomStreamWithThreeDoubles = new SplittableRandom().doubles(3);
+        DoubleStream threeRandomNumbersBetween0And100 = new SplittableRandom().doubles(3, 0, 10);
+        // actually, the above is [0, 100) = including 0 and < 100
     }
 
     @Test
