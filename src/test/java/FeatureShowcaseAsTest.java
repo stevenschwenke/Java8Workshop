@@ -7,6 +7,9 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
+import java.util.stream.DoubleStream;
+import java.util.stream.IntStream;
+import java.util.stream.LongStream;
 import java.util.stream.Stream;
 
 import static org.junit.Assert.assertEquals;
@@ -215,6 +218,21 @@ public class FeatureShowcaseAsTest {
         // That is the same as above:
         System.out.println("\n2nd stream:");
         Stream.generate(Math::random).limit(3).sorted().forEach((x) -> System.out.println(x));
+    }
+
+    @Test
+    public void primitiveStreams() {
+
+        // There are special streams for some primitive types: int, long and double.
+        // Streams more efficient than Stream<T> because boxing/unboxing not done.
+        // For int and long there are Special range-methods:
+        IntStream efficientIntStream = IntStream.range(0, 4);
+        Stream<Integer> inefficientIntStream = Stream.of(0, 1, 2, 3);
+
+        LongStream efficientLongStream = LongStream.range(0L, 4L);
+        Stream<Long> inefficientLongStream = Stream.of(0L, 1L, 2L, 3L);
+
+        DoubleStream doubleStream = DoubleStream.of(0.0d, 0.5d);
     }
 
     @Test
