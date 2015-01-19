@@ -4,10 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
-import java.util.function.BinaryOperator;
-import java.util.function.Consumer;
-import java.util.function.Predicate;
-import java.util.function.Supplier;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.*;
 import java.util.stream.Stream;
 
 import static org.junit.Assert.assertEquals;
@@ -168,11 +166,35 @@ public class FeatureShowcaseAsTest {
 
     // 5 Streams
 
-    // Stream is not a data structure. Streams are pipelines that handle data structures to operations.
+    // Stream is not a data structure, it doesn't hold data. It just holds references to the underlying stream
+    // source. Streams are pipelines that handle data structures to operations.
     //
     // Streams = intermediate operations (filter, map) + terminal operation (reduce, sum)
 
-    // TODO Streams erzeugbar aus: collections, generatoren, ... -> siehe plakat
+    @Test
+    public void waysOfCreatingStreams() {
+
+        // 1. collection-based
+        String[] stringArray = {"first", "second", "third", "fourth"};
+        List<String> stringList = Arrays.asList(stringArray);
+
+        Stream<String> streamFromCollection = stringList.stream();
+        Stream<String> parallelStreamFromCollection = stringList.parallelStream();
+
+        // 2. array-based
+        Stream<String> streamFromArray = Arrays.stream(stringArray);
+        Stream<String> parallelStreamFromArray = Arrays.stream(stringArray).parallel();
+
+        Stream<String> streamFromStaticArrayMethod = Stream.of("first", "second", "third", "fourth");
+
+        // 3.1 generate via supplier
+        Stream<Double> randomNumberStream = Stream.generate(Math::random);
+        Stream<Integer> integerStream1 = Stream.generate(new AtomicInteger()::getAndIncrement);
+
+        // 3.2 generate via seed + operator
+        Stream<Integer> integerStream2 = Stream.iterate(0, integer1 -> integer1 + 1);
+
+    }
 
     @Test
     public void neverEndingStream() {
@@ -193,6 +215,14 @@ public class FeatureShowcaseAsTest {
         // That is the same as above:
         System.out.println("\n2nd stream:");
         Stream.generate(Math::random).limit(3).sorted().forEach((x) -> System.out.println(x));
+    }
+
+    @Test
+    public void streamsMultiThread() {
+        List<String> stringList = Arrays.asList("first", "second", "third", "fourth");
+
+        Stream<String> parallelStream = stringList.parallelStream();
+        parallelStream.forEach(System.out::println);
     }
 
     @Test
