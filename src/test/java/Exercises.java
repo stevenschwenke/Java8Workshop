@@ -1,8 +1,7 @@
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.BinaryOperator;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -63,5 +62,24 @@ public class Exercises {
         System.out.println("Java 8:");
         Object resultJava8 = args.stream().map(integer -> integer * integer + 5).reduce((o, o2) -> o + o2).get();
         System.out.println(resultJava8);
+    }
+
+    // Write a generator that prints a number and its 100 following numbers.
+    @Test
+    public void generatingIntegers() {
+        Stream<Integer> integerStream = Stream.generate(new AtomicInteger(5)::getAndIncrement).limit(100);
+        integerStream.forEach(System.out::println);
+    }
+
+    // Advanced task: write a generator that prints the current date and the date of the next 100 days.
+    @Test
+    public void generatingCalendarDays() {
+        Stream<Date> dateStream = Stream.iterate(new Date(), date -> {
+            Calendar c = new GregorianCalendar();
+            c.setTime(date);
+            c.set(GregorianCalendar.DAY_OF_YEAR, c.get(GregorianCalendar.DAY_OF_YEAR) + 1);
+            return c.getTime();
+        });
+        dateStream.limit(100).forEach(System.out::println);
     }
 }

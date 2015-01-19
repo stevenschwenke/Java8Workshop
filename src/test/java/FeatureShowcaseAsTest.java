@@ -5,7 +5,8 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.function.*;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 import static org.junit.Assert.assertEquals;
@@ -193,7 +194,6 @@ public class FeatureShowcaseAsTest {
 
         // 3.2 generate via seed + operator
         Stream<Integer> integerStream2 = Stream.iterate(0, integer1 -> integer1 + 1);
-
     }
 
     @Test
