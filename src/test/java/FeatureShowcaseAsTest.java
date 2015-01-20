@@ -305,6 +305,9 @@ public class FeatureShowcaseAsTest {
         // actually, the above is [0, 100) = including 0 and < 100
     }
 
+    // ... and many more streams at java doc for java.util.stream
+    // http://docs.oracle.com/javase/8/docs/api/java/util/stream/package-summary.html
+
     // TODO java8.org -> Cheatsheet
     // TODO main focus on Java 8. But also touch versions 1.5 to 1.8.
     // TODO review all new packages for new classes and add them here
