@@ -1,5 +1,10 @@
 import org.junit.Test;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.DirectoryStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
@@ -238,6 +243,15 @@ public class FeatureShowcaseAsTest {
         String string = "This is just a random test string!";
         Stream<String> stringStream = Pattern.compile("\\W").splitAsStream(string);
         stringStream.forEach(System.out::println);
+    }
+
+    @Test
+    public void fileStreams() throws IOException {
+        DirectoryStream<Path> directoryStream = Files.newDirectoryStream(new File("src/main/java").toPath());
+        directoryStream.forEach(System.out::println);
+
+        Stream<String> linesStream = Files.lines(new File("src/main/java/DeepThought.java").toPath());
+        linesStream.forEach(System.out::println);
     }
 
     @Test
