@@ -219,7 +219,10 @@ public class FeatureShowcaseAsTest {
 
     @Test
     public void splittableRandom() {
-        // new class for creating streams with random numbers:
+        // New class for creating random numbers, that additionally supports streams. To support parallel streams,
+        // numbers that are generated in parallel threads should be independent from each other. In other words:
+        // this generator is not "shared" between threads, it's "splitted". Also, it's faster then Math.random(). :)
+
         DoubleStream randomStreamWithThreeDoubles = new SplittableRandom().doubles(3);
         DoubleStream threeRandomNumbersBetween0And100 = new SplittableRandom().doubles(3, 0, 10);
         // actually, the above is [0, 100) = including 0 and < 100
