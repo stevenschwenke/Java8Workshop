@@ -218,17 +218,6 @@ public class FeatureShowcaseAsTest {
     }
 
     @Test
-    public void splittableRandom() {
-        // New class for creating random numbers, that additionally supports streams. To support parallel streams,
-        // numbers that are generated in parallel threads should be independent from each other. In other words:
-        // this generator is not "shared" between threads, it's "splitted". Also, it's faster then Math.random(). :)
-
-        DoubleStream randomStreamWithThreeDoubles = new SplittableRandom().doubles(3);
-        DoubleStream threeRandomNumbersBetween0And100 = new SplittableRandom().doubles(3, 0, 10);
-        // actually, the above is [0, 100) = including 0 and < 100
-    }
-
-    @Test
     public void primitiveStreams() {
 
         // There are special streams for some primitive types: int, long and double.
@@ -281,6 +270,17 @@ public class FeatureShowcaseAsTest {
 
         // TODO values from both calculations are not the same!
         // TODO 9 million operations are nearly equal in time - 3 is very different. Why?
+    }
+
+    @Test
+    public void splittableRandom() {
+        // New class for creating random numbers, that additionally supports streams. To support parallel streams,
+        // numbers that are generated in parallel threads should be independent from each other. In other words:
+        // this generator is not "shared" between threads, it's "splitted". Also, it's faster then Math.random(). :)
+
+        DoubleStream randomStreamWithThreeDoubles = new SplittableRandom().doubles(3);
+        DoubleStream threeRandomNumbersBetween0And100 = new SplittableRandom().doubles(3, 0, 10);
+        // actually, the above is [0, 100) = including 0 and < 100
     }
 
     // TODO java8.org -> Cheatsheet
