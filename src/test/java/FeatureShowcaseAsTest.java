@@ -4,6 +4,7 @@ import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
+import java.util.regex.Pattern;
 import java.util.stream.DoubleStream;
 import java.util.stream.IntStream;
 import java.util.stream.LongStream;
@@ -230,6 +231,13 @@ public class FeatureShowcaseAsTest {
         Stream<Long> inefficientLongStream = Stream.of(0L, 1L, 2L, 3L);
 
         DoubleStream doubleStream = DoubleStream.of(0.0d, 0.5d);
+    }
+
+    @Test
+    public void regexStreams() {
+        String string = "This is just a random test string!";
+        Stream<String> stringStream = Pattern.compile("\\W").splitAsStream(string);
+        stringStream.forEach(System.out::println);
     }
 
     @Test
