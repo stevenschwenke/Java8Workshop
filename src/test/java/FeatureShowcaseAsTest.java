@@ -19,6 +19,7 @@ import java.util.stream.Stream;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 public class FeatureShowcaseAsTest {
 
@@ -321,8 +322,11 @@ public class FeatureShowcaseAsTest {
 
     Workflow: Each intermediate operation generates a new stream that "knows" which operations to execute on which
     elements of the input-stream. However, these operations are executed when the terminal operation occurs, not
-    before! Then, the elements of the backing data source are visited and each intermediate and the terminal operation
-    is performed. The following test shows that.
+    before! Then, the elements of the backing data source are visited one after the other and each intermediate and the
+    terminal operation is performed on each element.
+    Let's say we have three intermediate operations and a stream of 5 elements. Then each of the 5 elements is visited
+    after each other and with each visit, every one of the three operations is performed at the current element. This
+    way, every element has to be visited only once. This workflow is also necessary for parallel streams.
     */
     @Test
     public void intermediateAndTerminalOperation() {
@@ -336,6 +340,31 @@ public class FeatureShowcaseAsTest {
         Stream.of(1, 2, 3).peek(System.out::println).count();
     }
 
+    @Test
+    public void terminalOperationsCloseTheStream() {
+        Stream<Integer> stream = Stream.of(1, 2, 3);
+
+        // operation possible because stream is not closed:
+        stream.peek(System.out::println).reduce(Integer::sum).get();
+
+        // operation NOT possible because stream is closed:
+        stream.reduce(Integer::sum).get();
+    }
+
+    /*
+    Short-circuiting operations
+
+    = operation that doesn't visit all elements of a stream. Can be an intermediate of a final operation.
+     */
+    @Test
+    public void shortCircuitingOperation() {
+        // Intermediate short-circuit operation that doesn't visit the last element:
+        Stream.of(1, 2, 3).limit(2).forEach(System.out::println);
+
+        // Terminal short-circuit operation that skips every element after the first "1":
+        boolean integerOnePresent = Stream.of(1, 2, 3).anyMatch(integer -> integer == 1);
+        assertTrue(integerOnePresent);
+    }
 
     // TODO java8.org -> Cheatsheet
     // TODO main focus on Java 8. But also touch versions 1.5 to 1.8.
