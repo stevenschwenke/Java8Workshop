@@ -82,4 +82,20 @@ public class Exercises {
         });
         dateStream.limit(100).forEach(System.out::println);
     }
+
+    // Write code that accepts a list/array of integers. Only the even numbers shall be printed out and summed. The sum
+    // should also be printed.
+    @Test
+    public void reduceWithRobustErrorHandling() {
+        Integer[] integers = {1, 2, 3, 4, 5};
+
+        Stream<Integer> stream = Stream.of(integers).filter(integer -> integer % 2 == 0).peek(System.out::println);
+        Optional<Integer> reduce = stream.reduce(Integer::sum);
+
+        // Ooops - this could throw a nasty exception if there are no values in the list any more.
+        System.out.println(reduce.get());
+
+        // This is pretty robust and won't throw exceptions.
+        System.out.println(reduce.orElse(0));
+    }
 }

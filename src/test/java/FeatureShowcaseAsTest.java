@@ -7,7 +7,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.BinaryOperator;
 import java.util.function.Consumer;
+import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.regex.Pattern;
 import java.util.stream.DoubleStream;
@@ -307,6 +309,33 @@ public class FeatureShowcaseAsTest {
 
     // ... and many more streams at java doc for java.util.stream
     // http://docs.oracle.com/javase/8/docs/api/java/util/stream/package-summary.html
+    // TODO Search more relevant examples from the java doc
+
+    /*
+     In Java Doc special wording for classifying streams-operations. For example operation limit(...) "This is a
+     short-circuiting stateful intermediate operation".
+
+     intermediate vs terminal operations:
+     - intermediate operation returns stream, for example filter(...), map(...), peek(...)
+     - terminal operations return something else and are the end of a list of operations, for example count(), reduce(...)
+
+    Workflow: Each intermediate operation generates a new stream that "knows" which operations to execute on which
+    elements of the input-stream. However, these operations are executed when the terminal operation occurs, not
+    before! Then, the elements of the backing data source are visited and each intermediate and the terminal operation
+    is performed. The following test shows that.
+    */
+    @Test
+    public void intermediateAndTerminalOperation() {
+
+        System.out.println("No terminal operation:");
+        // No terminal operation, so the intermediate operation is not executed.
+        Stream.of(1, 2, 3).peek(System.out::println);
+
+        System.out.println("With terminal operation:");
+        // Ah yes - now we see intermediate operation stuff happening - thanks to the terminal operation! :)
+        Stream.of(1, 2, 3).peek(System.out::println).count();
+    }
+
 
     // TODO java8.org -> Cheatsheet
     // TODO main focus on Java 8. But also touch versions 1.5 to 1.8.
