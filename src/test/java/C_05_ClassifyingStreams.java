@@ -61,4 +61,19 @@ public class C_05_ClassifyingStreams {
         assertTrue(integerOnePresent);
     }
 
+    /*
+    Stateless vs stateful operations
+
+    Stateless operations just need the element to operate and don't need to know anything about the rest of the stream.
+    Examples are filter, map.
+
+    Stateful operations need information about the rest of the stream. limit(...) for example needs to count the visited
+    elements in order to know when to cancel and return. distinct(...) removes duplicates and hence has to remember the
+    visited elements.
+
+    Stateless operations are fast and don't cause trouble when being called in parallel streams. Stateful operations
+    however have to be treated differently and are much slower. The most expensive operation is sort(...) because
+    it has to copy the whole stream in order to compare its elements.
+     */
+
 }
