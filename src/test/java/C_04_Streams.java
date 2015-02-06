@@ -19,7 +19,8 @@ import java.util.stream.Stream;
 
 /**
  * Stream is not a data structure, it doesn't hold data. It just holds references to the underlying stream
- * source. Streams are pipelines that handle data structures to operations.
+ * source and knows a number of tasks that should be executed against each element of the stream source. Streams are
+ * pipelines that handle data structures to operations.
  *
  * Streams = intermediate operations (filter, map) + terminal operation (reduce, sum)
  */

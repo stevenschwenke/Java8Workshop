@@ -1,5 +1,6 @@
 import org.junit.Test;
 
+import java.util.Arrays;
 import java.util.stream.Stream;
 
 import static org.junit.Assert.assertTrue;
@@ -14,14 +15,6 @@ public class C_05_ClassifyingStreams {
      intermediate vs terminal operations:
      - intermediate operation returns stream, for example filter(...), map(...), peek(...)
      - terminal operations return something else and are the end of a list of operations, for example count(), reduce(...)
-
-    Workflow: Each intermediate operation generates a new stream that "knows" which operations to execute on which
-    elements of the input-stream. However, these operations are executed when the terminal operation occurs, not
-    before! Then, the elements of the backing data source are visited one after the other and each intermediate and the
-    terminal operation is performed on each element.
-    Let's say we have three intermediate operations and a stream of 5 elements. Then each of the 5 elements is visited
-    after each other and with each visit, every one of the three operations is performed at the current element. This
-    way, every element has to be visited only once. This workflow is also necessary for parallel streams.
     */
     @Test
     public void intermediateAndTerminalOperation() {
@@ -33,6 +26,9 @@ public class C_05_ClassifyingStreams {
         System.out.println("With terminal operation:");
         // Ah yes - now we see intermediate operation stuff happening - thanks to the terminal operation! :)
         Stream.of(1, 2, 3).peek(System.out::println).count();
+
+        // Little hint: You now know the intermediate operation peek(). It let's you output your stream without
+        // ending it, not like forEach(System.out::println). Very handy for having a peek within your stream.
     }
 
     @Test
@@ -44,6 +40,26 @@ public class C_05_ClassifyingStreams {
 
         // operation NOT possible because stream is closed:
         stream.reduce(Integer::sum).get();
+    }
+
+    /*
+        Workflow: Each intermediate operation generates a new stream that "knows" which operations to execute on which
+        elements of the input-stream. However, these operations are executed when the terminal operation occurs, not
+        before! Then, the elements of the backing data source are visited one after the other and each intermediate and the
+        terminal operation is performed on each element. The operations are executed vertically, not horizontally.
+        Let's say we have three intermediate operations and a stream of 5 elements. Then each of the 5 elements is visited
+        after each other and with each visit, every one of the three operations is performed at the current element. This
+        way, every element has to be visited only once. This workflow is also necessary for parallel streams.
+    */
+    @Test
+    public void showingWorkflowOfStreams() {
+        String[] txt = {"This", "is", "my", "little", "example", "text"};
+        int sum = Arrays.stream(txt).
+                filter(s -> s.length() > 1).
+                peek(System.out::println).
+                map(String::length).
+                peek(System.out::println).
+                reduce(0, Integer::sum);
     }
 
     /*

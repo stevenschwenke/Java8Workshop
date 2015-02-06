@@ -3,6 +3,7 @@ import org.junit.Test;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.BinaryOperator;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
@@ -43,6 +44,8 @@ public class C_05_Streams_Exercises {
     // Write code that accepts a list/array of integers. Only the even numbers shall be printed out and summed. The sum
     // should also be printed.
 
+    // Exercise 6 - showThatParallelStreamRunsOnDifferentThreads
+    // Write code that shows how sequential streams run on one thread and parallel streams run on multiple threads.
 
     ////////////////////////
     // SOLUTIONS
@@ -117,5 +120,20 @@ public class C_05_Streams_Exercises {
 
         // This is pretty robust and won't throw exceptions.
         System.out.println(reduce.orElse(0));
+    }
+
+    @Test
+    public void showThatParallelStreamRunsOnDifferentThreadsSOLUTION() {
+        System.out.println("Sequential:");
+        Stream<Integer> seqStream = Stream.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+        seqStream.forEach(i -> {
+            System.out.println(Thread.currentThread().getName() + ": i");
+        });
+
+        System.out.println("Parallel:");
+        Stream<Integer> parallelStream = Stream.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10).parallel();
+        parallelStream.forEach(i -> {
+            System.out.println(Thread.currentThread().getName() + ": i");
+        });
     }
 }
