@@ -3,32 +3,42 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 /**
- * TODO write some prose here
+ * From JavaDoc:
+ * <p>
+ * "Functional interfaces provide target types for lambda expressions and method references."
+ * <p>
+ * Yeah, now we know what's going on! Well, not quite yet. Let's work through this baby step by baby step.
  */
 public class C_01_FunctionInterfacesAndLambdas {
 
 
     @Test
-    public void functionalInterfaceMustHaveOnlyOneAbstractMethod() {
-
-        // Functional Interface is annotated as such, but is implemented by a normal class. Boring!
+    public void functionalInterfaceIsANormalInterfaceButMustHaveOnlyOneAbstractMethod() {
 
         SimpleFunctionalInterface i = new DeepThought();
         assertEquals(42, i.returnAnswerToUltimateQuestionOfLifeTheUniverseAndEverything());
+
+        // -> Functional Interface is annotated as such, but is implemented by a normal class. Boring!
     }
 
     @Test
     public void implementingFunctionalInterfaceWithLambdaExpression() {
 
-        // Functional Interface can also be implementing with Lambdas. Here are some different versions:
+        // All right, functional interfaces must have only one abstract method. This one abstract method can be
+        // implemented with lambdas. Yes, that is kind of cool as you will see!
+
+        // Lambdas = closures = function literals = lambda expressions
+
         SlightlyMoreSophisticatedFunctionalInterface impl = null;
 
+        // Let's implement the method in various ways:
+
+        impl = (int summand1, int summand2) -> (summand1 + summand2);
+        assertEquals(3, impl.sumItUp(1, 2));
 
         impl = (final int summand1, final int summand2) -> (summand1 + summand2);
         assertEquals(3, impl.sumItUp(1, 2));
 
-        impl = (int summand1, int summand2) -> (summand1 + summand2);
-        assertEquals(3, impl.sumItUp(1, 2));
 
         impl = (summand1, summand2) -> (summand1 + summand2);
         assertEquals(3, impl.sumItUp(1, 2));
@@ -41,13 +51,16 @@ public class C_01_FunctionInterfacesAndLambdas {
         assertEquals(3, impl.sumItUp(1, 2));
 
         // NOPE: final without type
-        //impl = (final summand1, final summand2) -> (summand1 + summand2);
+        // impl = (final summand1, final summand2) -> (summand1 + summand2);
 
         // NOPE: mixed inferred and typed argument
-        //impl = (int summand1, summand2) -> (summand1 + summand2);
+        // impl = (int summand1, summand2) -> (summand1 + summand2);
 
-        // Methods and lambdas represent a functionality. Methods however may have side effects, Lambdas don't!
-        // Lambda take input and do something and give a result back, without any side effects.
+
+        /*
+            Methods and lambdas represent a functionality. Methods however may have side effects, Lambdas don't!
+            Lambda take input and do something and give a result back, without any side effects. See next unit test:
+         */
     }
 
     @Test
@@ -71,5 +84,4 @@ public class C_01_FunctionInterfacesAndLambdas {
         // See following interface:
         FunctionalInterfaceGen1 x;
     }
-
 }

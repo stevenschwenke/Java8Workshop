@@ -17,14 +17,13 @@ import java.util.stream.IntStream;
 import java.util.stream.LongStream;
 import java.util.stream.Stream;
 
+/**
+ * Stream is not a data structure, it doesn't hold data. It just holds references to the underlying stream
+ * source. Streams are pipelines that handle data structures to operations.
+ *
+ * Streams = intermediate operations (filter, map) + terminal operation (reduce, sum)
+ */
 public class C_04_Streams {
-
-    // 5 Streams
-
-    // Stream is not a data structure, it doesn't hold data. It just holds references to the underlying stream
-    // source. Streams are pipelines that handle data structures to operations.
-    //
-    // Streams = intermediate operations (filter, map) + terminal operation (reduce, sum)
 
     @Test
     public void waysOfCreatingStreams() {
@@ -33,6 +32,8 @@ public class C_04_Streams {
         String[] stringArray = {"first", "second", "third", "fourth"};
         List<String> stringList = Arrays.asList(stringArray);
 
+        // stream = "do with every element in the given order"
+        // parallel stream = "do with every element in a random order but much faster"
         Stream<String> streamFromCollection = stringList.stream();
         Stream<String> parallelStreamFromCollection = stringList.parallelStream();
 
@@ -66,7 +67,7 @@ public class C_04_Streams {
         System.out.println("First stream:");
         Stream.generate(Math::random).limit(3).sorted().forEach(System.out::println);
 
-        // That is the same as above:
+        // That is the same as above with a lambda expression:
         System.out.println("\n2nd stream:");
         Stream.generate(Math::random).limit(3).sorted().forEach((x) -> System.out.println(x));
     }

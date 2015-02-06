@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 /**
- * TODO write some prose here
+ * Default methods have been introduced to make the old Java API compatible with the new concepts.
  */
 public class C_02_Default_Methods {
 
@@ -26,13 +26,12 @@ public class C_02_Default_Methods {
         HighlySophisticatedFunctionalInterface inter = () -> 42;
 
         assertEquals(42, inter.returnAnswerToUltimateQuestionOfLifeTheUniverseAndEverything());
-        assertNotNull(inter.returnQuestionTo42());
+        assertEquals("UH-OH",inter.returnQuestionTo42());
     }
 
     @Test
     public void defaultMethodsWillBeOverriddenByLowerImplementations() {
-        InterfaceWithDefaultMethodGen2 gen2 = new InterfaceWithDefaultMethodGen2() {
-        };
+        InterfaceWithDefaultMethodGen2 gen2 = new InterfaceWithDefaultMethodGen2() { };
         System.out.println(gen2.getSomeString());
     }
 
@@ -45,12 +44,5 @@ public class C_02_Default_Methods {
     // default method. That's just one additional layer of complexity. To avoid problems here, continue implementing
     // interfaces. Use default methods only for what they have been introduced: Enhancing old APIs that have to be
     // downwards compatible.
-
-    // 3. Interfaces can have static methods
-
-    @Test
-    public void interfaceHasAStaticMethod() {
-        assertEquals(1, InterfaceWithStaticMethod.staticMethodWithinAnInterface());
-    }
 
 }

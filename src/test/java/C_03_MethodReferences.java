@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 /**
  * Method references allow to identify methods without actually calling them.
@@ -34,21 +35,19 @@ public class C_03_MethodReferences {
 
         // Using method references for a print of the list (however without separators)
         list.forEach(System.out::print);
-        System.out.println();
-        list.forEach(s -> System.out.print(s));
     }
 
     @Test
     public void methodReferenceToVariable() {
         // Consumer is a new functional interface that takes one argument and returns void.
-        Consumer<String> consumerReference = System.out::print;
+        Consumer<String> consumerReference = System.out::println;
         consumerReference.accept("Printed string by reference to variable!");
+
+        // Supplier is also a new functional interface:
+        Supplier<Double> supplierReference = Math::random;
+        consumerReference.accept(supplierReference. toString());
+
+        // Wait, we wanted to print that random number! With .get() we get the value of a supplier:
+        consumerReference.accept(supplierReference.get(). toString());
     }
-
-
-    // TODO java8.org -> Cheatsheet
-    // TODO main focus on Java 8. But also touch versions 1.5 to 1.8.
-    // TODO review all new packages for new classes and add them here
-
-    // TODO Create exercises for the participants
 }
