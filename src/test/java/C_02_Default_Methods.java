@@ -45,4 +45,6 @@ public class C_02_Default_Methods {
     // interfaces. Use default methods only for what they have been introduced: Enhancing old APIs that have to be
     // downwards compatible.
 
+    // The above is the reason there are no exercises in this chapter.
+
 }

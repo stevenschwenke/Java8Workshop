@@ -15,12 +15,12 @@ bottom because they depend on each other. Yeah I know, that's not what unit test
  tests and expect them to be green.** 
 
 
-1. TODO
+TODO at Hackcamp Wolfsburg on 2015-02-07
 ----------
+- together invent exercises for each chapter
 - java8.org -> Cheatsheet
 - main focus on Java 8. But also touch versions 1.5 to 1.8.
 - review all new packages for new classes and add them here
-- Create exercises for the participants
 - Parallel streams are supposed to be faster. However, several intelligent people suggested to never use it because 
 of thread issues. Read into that!
 

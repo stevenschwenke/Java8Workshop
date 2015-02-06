@@ -7,12 +7,15 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
-public class Exercises {
+/**
+ * Exercises for chapter 4 and 5: Streams.
+ */
+public class C_05_Streams_Exercises {
 
-    // 5. Streams
-
-    // The following Test prints only random numbers greater 0.5, but it doesn't print 3 of these numbers every time.
-    // Rewrite it so that it prints 3 numbers. Shorten the code as much as possible.
+    // Exercise 1 - orderOfOperationsInStreams
+    // The following code should print 3 random numbers that each are greater than 0.5. However,
+    // it doesn't print 3 of these numbers every time. Sometimes there are only two or one.
+    // Rewrite the code so that it prints 3 numbers. Shorten the code as much as possible.
     @Test
     public void orderOfOperationsInStreams() {
 
@@ -23,6 +26,30 @@ public class Exercises {
                 return o > 0.5;
             }
         }).forEach((x) -> System.out.println(x));
+    }
+
+    // Exercise 2 - doingMathWithLambdas
+    // Write conventional Java 7 code that calculates the formula y = sum(x*x + 5) for a list of integers. The result
+    // should be printed as a single integer. When you are finished, rewrite the code to Java 8 using streams and
+    // lambdas.
+
+    // Exercise 3 - generatingIntegers
+    // Write a generator that prints a number and its 100 following numbers.
+
+    // Exercise 4 - generatingCalendarDays
+    // Advanced task: write a generator that prints the current date and the date of the next 100 days.
+
+    // Exercise 5 - reduceWithRobustErrorHandling
+    // Write code that accepts a list/array of integers. Only the even numbers shall be printed out and summed. The sum
+    // should also be printed.
+
+
+    ////////////////////////
+    // SOLUTIONS
+    ////////////////////////
+
+    @Test
+    public void orderOfOperationsInStreamsSOLUTION() {
 
         // Solution: Streams execute operations in the given order. Here, the random numbers are limited to 3 and
         // then filtered. To guarantee that 3 numbers are printed, they should first be filtered and then limited:
@@ -30,11 +57,8 @@ public class Exercises {
         Stream.generate(Math::random).filter(o -> o > 0.5).limit(3).forEach((x) -> System.out.println(x));
     }
 
-    // Write conventional Java 7 code that calculates the formula y = sum(x*x + 5) for a list of integers. The result
-    // should be printed as a single integer. When you are finished, rewrite the code to Java 8 using streams and
-    // lambdas.
     @Test
-    public void doingMathWithLambdas() {
+    public void doingMathWithLambdasSOLUTION() {
 
         List<Integer> args = new ArrayList<>(Arrays.asList(new Integer[]{1, 2, 3, 4, 5}));
 
@@ -64,16 +88,14 @@ public class Exercises {
         System.out.println(resultJava8);
     }
 
-    // Write a generator that prints a number and its 100 following numbers.
     @Test
-    public void generatingIntegers() {
+    public void generatingIntegersSOLUTION() {
         Stream<Integer> integerStream = Stream.generate(new AtomicInteger(5)::getAndIncrement).limit(100);
         integerStream.forEach(System.out::println);
     }
 
-    // Advanced task: write a generator that prints the current date and the date of the next 100 days.
     @Test
-    public void generatingCalendarDays() {
+    public void generatingCalendarDaysSOLUTION() {
         Stream<Date> dateStream = Stream.iterate(new Date(), date -> {
             Calendar c = new GregorianCalendar();
             c.setTime(date);
@@ -83,10 +105,8 @@ public class Exercises {
         dateStream.limit(100).forEach(System.out::println);
     }
 
-    // Write code that accepts a list/array of integers. Only the even numbers shall be printed out and summed. The sum
-    // should also be printed.
     @Test
-    public void reduceWithRobustErrorHandling() {
+    public void reduceWithRobustErrorHandlingSOLUTION() {
         Integer[] integers = {1, 2, 3, 4, 5};
 
         Stream<Integer> stream = Stream.of(integers).filter(integer -> integer % 2 == 0).peek(System.out::println);
