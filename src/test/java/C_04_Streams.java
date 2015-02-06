@@ -58,10 +58,13 @@ public class C_04_Streams {
 
         // This stream has no intermediate operations and one terminal operation (println):
         Stream.generate(random).forEach(System.out::println);
+
+        // System.out::println is a terminal operation. That's why the streams in the test above are not executed but
+        // this stream here is.
     }
 
     @Test
-    public void advancedStream() {
+    public void streamWithIntermediateAndTerminalOperation() {
 
         // This stream has two intermediate operations and one terminal operation (println):
         System.out.println("First stream:");
@@ -104,7 +107,7 @@ public class C_04_Streams {
     }
 
     @Test
-    public void streamsMultiThread() {
+    public void parallelStreamsRunMultiThreaded() {
         List<String> stringList = Arrays.asList("first", "second", "third", "fourth");
 
         Stream<String> parallelStream = stringList.parallelStream();
@@ -114,11 +117,16 @@ public class C_04_Streams {
     @Test
     public void streamsMultiThreadPerformance() {
 
+        // This test is a playground for testing performance between calculating sequential and parallel sum of a
+        // long double stream. Play with the length of the stream:
+        int lengthOfStream = 22000000;
+
         List<Double> randomDoubleList = new ArrayList<>();
-        for (int i = 0; i < 2000000; i++) {
+        for (int i = 0; i < lengthOfStream; i++) {
             randomDoubleList.add(Math.random());
         }
 
+        // 1. calculating the sum with a normal stream
         long start = System.currentTimeMillis();
         Double sumSequential = randomDoubleList.stream().reduce((aDouble, aDouble2) -> aDouble + aDouble2).get();
         long end = System.currentTimeMillis();
@@ -126,9 +134,9 @@ public class C_04_Streams {
         System.out.println("Sequential calculated sum = " + sumSequential);
         System.out.println("Calculated in " + durationSequential + "ms");
 
-        // QUESTION: Why can we use the list of random doubles here again - shouldn't it be manipulated by the
-        // operations above?
 
+
+        // 2. calculating the sum with a parallel stream
         start = System.currentTimeMillis();
         Double sumParallel = randomDoubleList.parallelStream().reduce((aDouble, aDouble2) -> aDouble + aDouble2).get();
         end = System.currentTimeMillis();
@@ -136,11 +144,34 @@ public class C_04_Streams {
         System.out.println("Parallel calculated sum = " + sumParallel);
         System.out.println("Calculated in " + durationParallel + "ms");
 
+        // QUESTION: Why can we use the list of random doubles here again - shouldn't it be manipulated by the
+        // operations above?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         // ANSWER from question above: Input parameters of streams are not changed by stream operations. The list
         // is just the same so we can use it again.
 
-        // TODO values from both calculations are not the same!
-        // TODO 9 million operations are nearly equal in time - 3 is very different. Why?
+        // CONCLUSION:
+        // Runtime with different length of stream very different, dependent on the machine. Sometimes even the
+        // sequential stream is faster.
+        // Calculated sum differs between sequential and parallel stream! That's kind of odd.
     }
 
     @Test
@@ -156,7 +187,5 @@ public class C_04_Streams {
 
     // ... and many more streams at java doc for java.util.stream
     // http://docs.oracle.com/javase/8/docs/api/java/util/stream/package-summary.html
-    // TODO Search more relevant examples from the java doc
-
 
 }

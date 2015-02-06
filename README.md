@@ -23,4 +23,5 @@ bottom because they depend on each other. Yeah I know, that's not what unit test
 - Create exercises for the participants
 - Parallel streams are supposed to be faster. However, several intelligent people suggested to never use it because 
 of thread issues. Read into that!
+
     
