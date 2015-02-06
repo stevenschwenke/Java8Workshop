@@ -23,5 +23,6 @@ TODO at Hackcamp Wolfsburg on 2015-02-07
 - review all new packages for new classes and add them here
 - Parallel streams are supposed to be faster. However, several intelligent people suggested to never use it because 
 of thread issues. Read into that!
+- new JVM monitor
 
     
