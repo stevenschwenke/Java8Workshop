@@ -14,6 +14,13 @@ bottom because they depend on each other. Yeah I know, that's not what unit test
  **Attention: There are hideous unit tests that do weird things such as not terminating. Please don't run all unit 
  tests and expect them to be green.** 
 
+Content
+---------
+- functional interfaces
+- default methods
+- method references
+- streams
+- Date and Time API (in progress)
 
 TODO at Hackcamp Wolfsburg on 2015-02-07
 ----------
