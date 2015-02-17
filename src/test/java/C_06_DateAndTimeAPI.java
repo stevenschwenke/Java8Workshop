@@ -1,6 +1,7 @@
 import org.junit.Test;
 
 import java.time.*;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.Temporal;
 import java.time.temporal.TemporalAdjuster;
 import java.time.temporal.TemporalAdjusters;
@@ -82,7 +83,9 @@ public class C_06_DateAndTimeAPI {
 
     @Test
     public void temporalAdjuster() {
-        // temporal adjuster = implementation of strategy design pattern for modifying a temporal object
+
+        // temporal adjuster = implementation of strategy design pattern for "modifying" a temporal object, i.e.
+        // creating a new one.
 
         LocalDateTime now = LocalDateTime.now();
         System.out.println("Last day of year: " + now.with(TemporalAdjusters.lastDayOfYear()));
@@ -107,4 +110,37 @@ public class C_06_DateAndTimeAPI {
         System.out.println("Next odd day: " + now.with(nextOddDayTemporalAdjuster));
     }
 
+    @Test
+    public void timezones() {
+        /*
+        Java 7:
+        java.util.TimeZone
+        = designator ("Europe/Berlin")
+        + Offset to Greenwich/UTC-time ("+02:00")
+        + rules for when summer and winter time change.
+
+        Java 8: separation of concerns:
+        ZoneId + ZoneOffset + ZoneRules
+         */
+
+        // todo some examples, please!
+    }
+
+    @Test
+    public void calendarSystems() {
+        // todo: ISO, japan, ThaiBuddhist etc
+    }
+
+    @Test
+    public void period() {
+        // todo
+//        Duration d = new Duration();
+//        Period p = new Period();
+    }
+
+    @Test
+    public void parsing() {
+        // todo
+//        DateTimeFormatter f
+    }
 }
