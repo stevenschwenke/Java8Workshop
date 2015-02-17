@@ -1,7 +1,9 @@
 import org.junit.Test;
 
-import java.time.LocalDate;
-import java.time.MonthDay;
+import java.time.*;
+import java.time.temporal.Temporal;
+import java.time.temporal.TemporalAdjuster;
+import java.time.temporal.TemporalAdjusters;
 import java.time.temporal.TemporalField;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -35,7 +37,66 @@ public class C_06_DateAndTimeAPI {
         // ... can be used in every year:
         LocalDate localDate = d2.atYear(2015);
         System.out.println(localDate.getDayOfWeek());
+    }
 
+    @Test
+    public void dateAndTimeObjectsAreImmutable() {
+        LocalDate birthday = LocalDate.of(2015, 7, 19);
+        // No setter methods to change LocalDate! Only possible to create new objects like this:
+        LocalDate birthdayIn2016 = birthday.withYear(2016);
+
+        // Hence, objects are thread-safe.
+    }
+
+    @Test
+    public void calculatingTimeAndDate() {
+
+        // Simplified methods for calculating time and date and doing math:
+
+        LocalTime now = LocalTime.now();
+        System.out.println(now);
+        LocalTime beforeTwoHours = now.minusHours(2);
+        System.out.println(beforeTwoHours);
+        LocalTime inTwoHours = now.plusHours(2);
+        System.out.println(inTwoHours);
+        LocalTime withOneOClock = now.withHour(1);
+        System.out.println(withOneOClock);
+
+        LocalDate localDate = LocalDate.now();
+        System.out.println(localDate);
+        LocalDate beforeTwoDays = localDate.minusDays(2);
+        System.out.println(beforeTwoDays);
+        LocalDate inTwoDays = localDate.plusDays(2);
+        System.out.println(inTwoDays);
+        LocalDate withFirstDayOfMonth = localDate.withDayOfMonth(1);
+        System.out.println(withFirstDayOfMonth);
+    }
+
+    @Test
+    public void temporalAdjuster() {
+        // temporal adjuster = implementation of strategy design pattern for modifying a temporal object
+
+        LocalDateTime now = LocalDateTime.now();
+        System.out.println("Last day of year: " + now.with(TemporalAdjusters.lastDayOfYear()));
+        System.out.println("First day of next year: " + now.with(TemporalAdjusters.firstDayOfNextYear()));
+
+        TemporalAdjuster nextOddDayTemporalAdjuster = new TemporalAdjuster() {
+            @Override
+            public Temporal adjustInto(Temporal temporal) {
+                LocalDate localDate = LocalDate.from(temporal);
+
+                int day = localDate.getDayOfMonth();
+                if (day % 2 == 0) {
+                    localDate = localDate.plusDays(1);
+                } else {
+                    localDate = localDate.plusDays(2);
+                }
+
+                return temporal.with(localDate);
+            }
+        };
+
+        System.out.println("Next odd day: " + now.with(nextOddDayTemporalAdjuster));
     }
 
 }

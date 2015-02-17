@@ -21,7 +21,7 @@ import java.util.stream.Stream;
  * Stream is not a data structure, it doesn't hold data. It just holds references to the underlying stream
  * source and knows a number of tasks that should be executed against each element of the stream source. Streams are
  * pipelines that handle data structures to operations.
- *
+ * <p>
  * Streams = intermediate operations (filter, map) + terminal operation (reduce, sum)
  */
 public class C_04_Streams {
@@ -54,11 +54,12 @@ public class C_04_Streams {
 
     @Test
     public void neverEndingStream() {
+
         // Supplier is a new functional interface that somehow generates values or objects.
-        Supplier<Double> random = Math::random;
+        Supplier<Double> r = Math::random;
 
         // This stream has no intermediate operations and one terminal operation (println):
-        Stream.generate(random).forEach(System.out::println);
+        Stream.generate(r).forEach(System.out::println);
 
         // System.out::println is a terminal operation. That's why the streams in the test above are not executed but
         // this stream here is.
@@ -120,7 +121,7 @@ public class C_04_Streams {
 
         // This test is a playground for testing performance between calculating sequential and parallel sum of a
         // long double stream. Play with the length of the stream:
-        int lengthOfStream = 22000000;
+        int lengthOfStream = 2000;
 
         List<Double> randomDoubleList = new ArrayList<>();
         for (int i = 0; i < lengthOfStream; i++) {
@@ -133,9 +134,7 @@ public class C_04_Streams {
         long end = System.currentTimeMillis();
         long durationSequential = end - start;
         System.out.println("Sequential calculated sum = " + sumSequential);
-        System.out.println("Calculated in " + durationSequential + "ms");
-
-
+        System.out.println("Calculated in " + durationSequential + " ms");
 
         // 2. calculating the sum with a parallel stream
         start = System.currentTimeMillis();
@@ -143,27 +142,12 @@ public class C_04_Streams {
         end = System.currentTimeMillis();
         long durationParallel = end - start;
         System.out.println("Parallel calculated sum = " + sumParallel);
-        System.out.println("Calculated in " + durationParallel + "ms");
+        System.out.println("Calculated in " + durationParallel + " ms");
+
+        // Hint: rounding error because of addition
 
         // QUESTION: Why can we use the list of random doubles here again - shouldn't it be manipulated by the
         // operations above?
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
         // ANSWER from question above: Input parameters of streams are not changed by stream operations. The list
@@ -172,7 +156,6 @@ public class C_04_Streams {
         // CONCLUSION:
         // Runtime with different length of stream very different, dependent on the machine. Sometimes even the
         // sequential stream is faster.
-        // Calculated sum differs between sequential and parallel stream! That's kind of odd.
     }
 
     @Test

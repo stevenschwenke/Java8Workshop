@@ -1,6 +1,7 @@
 import org.junit.Test;
 
 import java.util.*;
+import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.BinaryOperator;
 import java.util.function.Consumer;
@@ -135,5 +136,9 @@ public class C_05_Streams_Exercises {
         parallelStream.forEach(i -> {
             System.out.println(Thread.currentThread().getName() + ": i");
         });
+
     }
+
+    // TODO: ForkJoinPool standardmäßig anzahl Processor. Kann konfiguriert werden:
+    //   ForkJoinPool forkJoinPool = new ForkJoinPool(2);
 }

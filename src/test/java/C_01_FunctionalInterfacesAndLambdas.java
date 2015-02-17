@@ -9,13 +9,16 @@ import static org.junit.Assert.assertEquals;
  * <p>
  * Yeah, now we know what's going on! Well, not quite yet. Let's work through this baby step by baby step.
  */
-public class C_01_FunctionInterfacesAndLambdas {
+public class C_01_FunctionalInterfacesAndLambdas {
 
-
+    /**
+     * TODO Bei jeder Testklasse den zu langen Testnamen als Doc hinzufügen.
+     */
     @Test
     public void functionalInterfaceIsANormalInterfaceButMustHaveOnlyOneAbstractMethod() {
 
         SimpleFunctionalInterface i = new DeepThought();
+        // TODO zu lange Methode
         assertEquals(42, i.returnAnswerToUltimateQuestionOfLifeTheUniverseAndEverything());
 
         // -> Functional Interface is annotated as such, but is implemented by a normal class. Boring!
@@ -70,12 +73,13 @@ public class C_01_FunctionInterfacesAndLambdas {
 
         SlightlyMoreSophisticatedFunctionalInterface impl = (a, b) -> {
 
-            // x = 5; // NOPE! But can be used within this method (just readable).
+            //  x = 5; // NOPE! But can be used within this method (just readable).
 
             return a + b;
         };
 
         assertEquals(3, impl.sumItUp(1, 2));
+        // TODO Carsten fragen: Bei Entw-Treffen statische Klassenvariable trotzdem verändern?
     }
 
 
@@ -84,4 +88,9 @@ public class C_01_FunctionInterfacesAndLambdas {
         // See following interface:
         FunctionalInterfaceGen1 x;
     }
+
+    // The execution of Lambdas does not generate anonymous classes. Lambdas are called with invokedynamic right at
+    // bytecode-level.
+
+    // TODO Übung: Swing-Button mit ActionListener refactorn. Ein Button mit einzeiligem Body, einen mit mehrzeiligem Body.
 }

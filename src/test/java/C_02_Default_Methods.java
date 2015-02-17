@@ -8,6 +8,8 @@ import static org.junit.Assert.assertNotNull;
  */
 public class C_02_Default_Methods {
 
+    // TODO Default Methods ganz am Anfang vor functional Interface
+
     @Test
     public void interfaceWithDefaultMethod() {
         InterfaceWithDefaultMethod i = new DefaultMethodImplementingEmptyClass();
@@ -26,12 +28,13 @@ public class C_02_Default_Methods {
         HighlySophisticatedFunctionalInterface inter = () -> 42;
 
         assertEquals(42, inter.returnAnswerToUltimateQuestionOfLifeTheUniverseAndEverything());
-        assertEquals("UH-OH",inter.returnQuestionTo42());
+        assertEquals("UH-OH", inter.returnQuestionTo42());
     }
 
     @Test
     public void defaultMethodsWillBeOverriddenByLowerImplementations() {
-        InterfaceWithDefaultMethodGen2 gen2 = new InterfaceWithDefaultMethodGen2() { };
+        InterfaceWithDefaultMethodGen2 gen2 = new InterfaceWithDefaultMethodGen2() {
+        };
         System.out.println(gen2.getSomeString());
     }
 

@@ -60,6 +60,7 @@ public class C_05_ClassifyingStreams {
                 map(String::length).
                 peek(System.out::println).
                 reduce(0, Integer::sum);
+        System.out.println("Sum: " + sum);
     }
 
     /*
