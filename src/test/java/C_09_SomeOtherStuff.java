@@ -7,8 +7,11 @@ import static org.junit.Assert.assertEquals;
  */
 public class C_09_SomeOtherStuff {
 
+    /**
+     * Interfaces are allowed to have static methods now.
+     */
     @Test
-    public void interfacesCanHaveStaticMethods() {
+    public void interfacesStaticMethods() {
         assertEquals(1, InterfaceWithStaticMethod.staticMethodWithinAnInterface());
     }
 }

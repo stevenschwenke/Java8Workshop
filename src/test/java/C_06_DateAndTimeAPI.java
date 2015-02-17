@@ -21,8 +21,12 @@ public class C_06_DateAndTimeAPI {
          java.time.LocalDate = date, java.time.LocalTime = time - both human-readable.
      */
 
+    /**
+     * The new API allows to represent a day and a month independent from the year. This way, recurrent events
+     * such as birthdays and christmas can be expressed.
+     */
     @Test
-    public void representingMyBirthdayIndependentFromYear() {
+    public void recurrentEvents() {
 
         // Java 7: always in a specific year:
         GregorianCalendar d1 = new GregorianCalendar();
@@ -39,8 +43,12 @@ public class C_06_DateAndTimeAPI {
         System.out.println(localDate.getDayOfWeek());
     }
 
+    /**
+     * Date and Time objects are immutable, i.e. they cannot be altered. If you want to express another date or time,
+     * you have to create a new object.
+     */
     @Test
-    public void dateAndTimeObjectsAreImmutable() {
+    public void immutable() {
         LocalDate birthday = LocalDate.of(2015, 7, 19);
         // No setter methods to change LocalDate! Only possible to create new objects like this:
         LocalDate birthdayIn2016 = birthday.withYear(2016);

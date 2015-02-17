@@ -37,9 +37,6 @@ public class C_03_MethodReferences {
         list.sort(Comparator.comparingInt(String::length));
         System.out.println(String.join(", ", list));
 
-        // TODO das müsste irgendwie so gehen.
-        // list.sort(() -> String::length);
-
         // Using method references for a print of the list (however without separators)
         list.forEach(System.out::print);
     }

@@ -12,10 +12,10 @@ import static org.junit.Assert.assertEquals;
 public class C_01_FunctionalInterfacesAndLambdas {
 
     /**
-     * TODO Bei jeder Testklasse den zu langen Testnamen als Doc hinzufügen.
+     * Functional interfaces are normal interfaces but must only have abstract one method.
      */
     @Test
-    public void functionalInterfaceIsANormalInterfaceButMustHaveOnlyOneAbstractMethod() {
+    public void normalInterfaceOnlyOneAbstractMethod() {
 
         SimpleFunctionalInterface i = new DeepThought();
         // TODO zu lange Methode
@@ -24,8 +24,11 @@ public class C_01_FunctionalInterfacesAndLambdas {
         // -> Functional Interface is annotated as such, but is implemented by a normal class. Boring!
     }
 
+    /**
+     * Functional interfaces can be implemented with Lambda expressions.
+     */
     @Test
-    public void implementingFunctionalInterfaceWithLambdaExpression() {
+    public void implementingWithLambdas() {
 
         // All right, functional interfaces must have only one abstract method. This one abstract method can be
         // implemented with lambdas. Yes, that is kind of cool as you will see!
@@ -66,8 +69,11 @@ public class C_01_FunctionalInterfacesAndLambdas {
          */
     }
 
+    /**
+     * Lambda expressions must be effectively final.
+     */
     @Test
-    public void lambdaExpressionMustBeEffectivelyFinal() {
+    public void effectivelyFinal() {
 
         int x = 3;
 
@@ -82,9 +88,11 @@ public class C_01_FunctionalInterfacesAndLambdas {
         // TODO Carsten fragen: Bei Entw-Treffen statische Klassenvariable trotzdem verändern?
     }
 
-
+    /**
+     * Functional interfaces cannot infer functional interfaces.
+     */
     @Test
-    public void functionalInterfaceCannotInferFunctionalInterface() {
+    public void noMultipleInheritance() {
         // See following interface:
         FunctionalInterfaceGen1 x;
     }

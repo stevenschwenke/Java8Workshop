@@ -27,7 +27,7 @@ import java.util.stream.Stream;
 public class C_04_Streams {
 
     @Test
-    public void waysOfCreatingStreams() {
+    public void creatingStreams() {
 
         // 1. collection-based
         String[] stringArray = {"first", "second", "third", "fourth"};
@@ -66,7 +66,7 @@ public class C_04_Streams {
     }
 
     @Test
-    public void streamWithIntermediateAndTerminalOperation() {
+    public void intermediateAndTerminalOperation() {
 
         // This stream has two intermediate operations and one terminal operation (println):
         System.out.println("First stream:");
@@ -117,7 +117,7 @@ public class C_04_Streams {
     }
 
     @Test
-    public void streamsMultiThreadPerformance() {
+    public void multiThreadPerformance() {
 
         // This test is a playground for testing performance between calculating sequential and parallel sum of a
         // long double stream. Play with the length of the stream:

@@ -22,7 +22,7 @@ Content
 - streams
 - Date and Time API (in progress)
 
-TODO at Hackcamp Wolfsburg on 2015-02-07
+TODO
 ----------
 - together invent exercises for each chapter
 - java8.org -> Cheatsheet

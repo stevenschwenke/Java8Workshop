@@ -137,8 +137,7 @@ public class C_05_Streams_Exercises {
             System.out.println(Thread.currentThread().getName() + ": i");
         });
 
+        // ForkJoinPool uses the number of physical processors but can be configured to use an arbitrary number of
+        // processors. However, using the physical processors is a good idea.
     }
-
-    // TODO: ForkJoinPool standardmäßig anzahl Processor. Kann konfiguriert werden:
-    //   ForkJoinPool forkJoinPool = new ForkJoinPool(2);
 }

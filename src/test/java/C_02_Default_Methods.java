@@ -8,7 +8,7 @@ import static org.junit.Assert.assertNotNull;
  */
 public class C_02_Default_Methods {
 
-    // TODO Default Methods ganz am Anfang vor functional Interface
+    // TODO Move Default Methods to the beginning, before functional Interfaces?
 
     @Test
     public void interfaceWithDefaultMethod() {
@@ -31,8 +31,11 @@ public class C_02_Default_Methods {
         assertEquals("UH-OH", inter.returnQuestionTo42());
     }
 
+    /**
+     * Default methods will be overridden by lower implementations.
+     */
     @Test
-    public void defaultMethodsWillBeOverriddenByLowerImplementations() {
+    public void overridingDefaultMethods() {
         InterfaceWithDefaultMethodGen2 gen2 = new InterfaceWithDefaultMethodGen2() {
         };
         System.out.println(gen2.getSomeString());

@@ -32,7 +32,7 @@ public class C_05_ClassifyingStreams {
     }
 
     @Test
-    public void terminalOperationsCloseTheStream() {
+    public void terminalOperationsCloseStream() {
         Stream<Integer> stream = Stream.of(1, 2, 3);
 
         // operation possible because stream is not closed:
@@ -52,7 +52,7 @@ public class C_05_ClassifyingStreams {
         way, every element has to be visited only once. This workflow is also necessary for parallel streams.
     */
     @Test
-    public void showingWorkflowOfStreams() {
+    public void showingWorkflow() {
         String[] txt = {"This", "is", "my", "little", "example", "text"};
         int sum = Arrays.stream(txt).
                 filter(s -> s.length() > 1).
