@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.*;
+import java.util.function.Supplier;
 
 /**
  * Java 8 brings a lot of support for concurrent programming. These are not main topic of this workshop and are just
@@ -100,7 +101,7 @@ public class C_07_Concurrency {
      * Lambdas to implement the Callable.
      */
     @Test
-    public void callableTestWithFuture() {
+    public void callableTestWithFuture() throws Exception {
         ExecutorService executor = Executors.newFixedThreadPool(10);
 
         List<Future<String>> list = new ArrayList<>();
@@ -118,36 +119,89 @@ public class C_07_Concurrency {
 
         // Future-objects represent the result of the callable.
         for (Future<String> fut : list) {
-            try {
-                // This line gets executed when the Future ist ready. That causes the output delay in console.
-                System.out.println(new Date() + " @ " + fut.get());
-            } catch (InterruptedException | ExecutionException e) {
-                e.printStackTrace();
-            }
+            // This line gets executed when the Future ist ready. That causes the output delay in console.
+            System.out.println(new Date() + " @ " + fut.get());
         }
         executor.shutdown();
     }
 
 
-    // TODO
         /*
     FutureTask, introduced in Java 8, implements RunnableFuture interface, which extends Runnable and Future
     interfaces. Hence, FutureTask can be passed to new Thread(futureTask) and ExecutorService.submit(futureTask).
      */
 
+
+    @Test
+    public void bla() throws Exception {
+        Callable<String> callable = () -> {
+            Thread.sleep(1000);
+            return Thread.currentThread().getName();
+        };
+
+        Callable<String> callable2 = () -> {
+            Thread.sleep(2000);
+            return Thread.currentThread().getName();
+        };
+
+        FutureTask<String> futureTask1 = new FutureTask<>(callable);
+        FutureTask<String> futureTask2 = new FutureTask<>(callable2);
+
+        ExecutorService executor = Executors.newFixedThreadPool(2);
+        executor.execute(futureTask1);
+        executor.execute(futureTask2);
+
+        while (true) {
+            try {
+                if (futureTask1.isDone() && futureTask2.isDone()) {
+                    System.out.println("Done");
+                    executor.shutdown();
+                    return;
+                }
+
+                if (!futureTask1.isDone()) {
+                    System.out.println("FutureTask1 output=" + futureTask1.get());
+                }
+
+                System.out.println("Waiting for FutureTask2 to complete");
+                String s = futureTask2.get(200L, TimeUnit.MILLISECONDS);
+                if (s != null) {
+                    System.out.println("FutureTask2 output=" + s);
+                }
+            } catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
+            } catch (TimeoutException e) {
+                //do nothing
+            }
+        }
+    }
+
 //    @Test
-//    public void CompletableFuture() {
-//        ExecutorService myPool = Executors.newFixedThreadPool(4);
+//    public void CompletableFuture() throws Exception {
+//        ExecutorService executor = Executors.newFixedThreadPool(10);
 //
-//        Supplier<String> task = () -> readString();
+//        // Supplier doesn't throw exceptions and can be used for nice fluent programming, see below.
+//        Supplier<String> task = () -> {
+//            try {
+//                Thread.sleep(1000);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//            return Thread.currentThread().getName();
+//        };
 //
-//        try {
-//            CompletableFuture.supplyAsync(task, myPool).thenAccept(s->System.out.println("->"+s+"<-read")).get();
-//        } catch (InterruptedException e) {
-//            System.out.println("problem: "+e.getCause());
-//        } catch (ExecutionException e) {
-//            e.printStackTrace();
+//        // work with 100 instances of the callable
+//        for (int i = 0; i < 100; i++) {
+//            CompletableFuture.supplyAsync(task, executor).thenAccept(s -> System.out.println(new Date() + " @ " +
+//                    s)).get();
+//            CompletableFuture.supplyAsync(task, executor).thenAccept(s -> System.out.println(new Date() + " @ " +
+//                    s)).get();
+//            CompletableFuture.supplyAsync(task, executor).thenAccept(s -> System.out.println(new Date() + " @ " +
+//                    s)).get();
+//            CompletableFuture.supplyAsync(task, executor).thenAccept(s -> System.out.println(new Date() + " @ " +
+//                    s)).get();
+//            // todo warum werden hier einzeln und nicht in 10er-Mengen abgearbeitet?
 //        }
-//        myPool.shutdown();
+//        executor.shutdown();
 //    }
 }
