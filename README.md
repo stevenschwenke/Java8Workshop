@@ -24,6 +24,7 @@ Content
 
 TODO
 ----------
+- http://www.angelikalanger.com/Articles/EffectiveJava/73.Java8.Overview/73.Java8.Overview.html
 - together invent exercises for each chapter
 - java8.org -> Cheatsheet
 - main focus on Java 8. But also touch versions 1.5 to 1.8.
