@@ -128,7 +128,7 @@ public class C_04_Streams {
             randomDoubleList.add(Math.random());
         }
 
-        // 1. calculating the sum with a normal stream
+        // 1. calculating the sum with a sequential stream
         long start = System.currentTimeMillis();
         Double sumSequential = randomDoubleList.stream().reduce((aDouble, aDouble2) -> aDouble + aDouble2).get();
         long end = System.currentTimeMillis();
