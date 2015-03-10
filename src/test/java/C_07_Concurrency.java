@@ -199,20 +199,16 @@ public class C_07_Concurrency {
         executor.shutdown();
     }
 
-             /*
-        - ForkJoinPool, introduced in Java 7, got overhauled.
-
-         // TODO what exactly?
-         - redesign class ForkJoinPool: had just one submit queue for external tasks, now has several. Much more
-         performance for applications with a lot of users that submit tasks simultaneously.
-         - common pool: ForkJoinPool has new method commonPool() that returns a singleton instance of the
-         ForkJoinPool. Used for parallel streams.
-         - new ForkJoinTask besides existing RecursiveTask and RecursiveAction: CountedCompleter. All three classes
-         are used for recursive programming. CountedCompleter builds a tree structure of java objects while
-         traversing the recursion
-         - todo completableFuture.
-         - better accumulators
-         - new lock: StampedLock
-
-     */
+    /*
+    Other changes in JDK 1.8:
+    - redesign class ForkJoinPool: had just one submit queue for external tasks, now has several. Much more
+      performance for applications with a lot of users that submit tasks simultaneously.
+    - common pool: ForkJoinPool has new method commonPool() that returns a singleton instance of the ForkJoinPool.
+      Used for parallel streams.
+    - new ForkJoinTask besides existing RecursiveTask and RecursiveAction: CountedCompleter. All three classes
+      are used for recursive programming. CountedCompleter builds a tree structure of java objects while traversing
+      the recursion
+    - better accumulators
+    - new lock: StampedLock
+    */
 }
