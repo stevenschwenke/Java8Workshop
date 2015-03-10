@@ -87,10 +87,11 @@ public class C_07_Concurrency {
     }
 
     /**
-     * ... In this test, it's used with an Executor class. The executor makes it easy to work with tasks.
+     * ... In this test, it's wrapped in a Future and used with an Executor class. This makes it easy to work with
+     * tasks.
      */
     @Test
-    public void callableTestWithFuture() throws Exception {
+    public void callableWrappedInFuture() throws Exception {
 
         // The executor sets the environment for the Callable to run in, for example amount of threads.
         ExecutorService executor = Executors.newFixedThreadPool(10);
@@ -115,10 +116,90 @@ public class C_07_Concurrency {
     }
 
 
+    /**
+     * This test shows another feature of Future: it can request the status of the task and thereby create nice
+     * feedback for the user.
+     */
+    @Test
+    public void callableWrappedInFuture2() throws Exception {
+        Callable<String> quickCallable = () -> {
+            Thread.sleep(1000);
+            return Thread.currentThread().getName();
+        };
+
+        Callable<String> slowCallable = () -> {
+            Thread.sleep(2000);
+            return Thread.currentThread().getName();
+        };
+
+        ExecutorService executor = Executors.newFixedThreadPool(2);
+        Future<String> quickTask = executor.submit(quickCallable);
+        Future<String> slowTask = executor.submit(slowCallable);
+
+        while (true) {
+            try {
+                if (quickTask.isDone() && slowTask.isDone()) {
+                    System.out.println("Both tasks done!");
+                    executor.shutdown();
+                    return;
+                }
+
+                if (!quickTask.isDone()) {
+                    System.out.println("quickTask output: " + quickTask.get());
+                }
+
+                System.out.println("Waiting for slowTask to complete");
+                String s = slowTask.get(200L, TimeUnit.MILLISECONDS);
+                if (s != null) {
+                    System.out.println("slowTask output: " + s);
+                }
+            } catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
+            } catch (TimeoutException e) {
+                //do nothing
+            }
+        }
+    }
 
 
+    /**
+     * Since JDK 1.8: CompletableFuture
+     * <p>
+     * Since recently, we can write fluent API, for example in JavaFX and in streams. CompletableFuture lets us also
+     * write fluent API in concurrent code.
+     */
+    @Test
+    public void CompletableFuture() throws Exception {
+        ExecutorService executor = Executors.newFixedThreadPool(10);
 
-         /*
+        // Here, a task is defined. Notice that it's defined as a Supplier, not a Callable. That's necessary for the
+        // fluent API because  Supplier doesn't throw exceptions.
+        Supplier<String> task = () -> {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            return Thread.currentThread().getName();
+        };
+
+        List<CompletableFuture<String>> list = new ArrayList<>();
+
+        for (int i = 0; i < 100; i++) {
+            CompletableFuture<String> completableFuture = CompletableFuture.supplyAsync(task, executor);
+            list.add(completableFuture);
+        }
+
+        for (CompletableFuture<String> future : list) {
+            // Here it is, our fluent API. After the CompletableFuture finished, we can just add another task to work
+            // on. Here, it's just a println:
+            future.thenAccept(s -> System.out.println(new Date() + " @ " + s)).get();
+        }
+
+        executor.shutdown();
+    }
+
+             /*
         - ForkJoinPool, introduced in Java 7, got overhauled.
 
          // TODO what exactly?
@@ -134,108 +215,4 @@ public class C_07_Concurrency {
          - new lock: StampedLock
 
      */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    /**
-     * TODO Whats so cool here?
-     */
-    @Test
-    public void bla() throws Exception {
-        Callable<String> callable = () -> {
-            Thread.sleep(1000);
-            return Thread.currentThread().getName();
-        };
-
-        Callable<String> callable2 = () -> {
-            Thread.sleep(2000);
-            return Thread.currentThread().getName();
-        };
-
-        FutureTask<String> futureTask1 = new FutureTask<>(callable);
-        FutureTask<String> futureTask2 = new FutureTask<>(callable2);
-
-        ExecutorService executor = Executors.newFixedThreadPool(2);
-        executor.execute(futureTask1);
-        executor.execute(futureTask2);
-
-        while (true) {
-            try {
-                if (futureTask1.isDone() && futureTask2.isDone()) {
-                    System.out.println("Done");
-                    executor.shutdown();
-                    return;
-                }
-
-
-                if (!futureTask1.isDone()) {
-                    System.out.println("FutureTask1 output=" + futureTask1.get());
-                }
-
-                System.out.println("Waiting for FutureTask2 to complete");
-                String s = futureTask2.get(200L, TimeUnit.MILLISECONDS);
-                if (s != null) {
-                    System.out.println("FutureTask2 output=" + s);
-                }
-            } catch (InterruptedException | ExecutionException e) {
-                e.printStackTrace();
-            } catch (TimeoutException e) {
-                //do nothing
-            }
-        }
-    }
-
-    /**
-     * Since JDK 1.0: CompletableFuture.
-     * <p>
-     * TODO Understand and describe.
-     */
-        /*
-    TODO Java 8
-    - CompletionStage + CompletableFuture
-    */
-            /*
-    FutureTask, introduced in Java 8, implements RunnableFuture interface, which extends Runnable and Future
-    interfaces. Hence, FutureTask can be passed to new Thread(futureTask) and ExecutorService.submit(futureTask).
-     */
-    @Test
-    public void CompletableFuture() throws Exception {
-        ExecutorService executor = Executors.newFixedThreadPool(10);
-
-        // Supplier doesn't throw exceptions and can be used for nice fluent programming, see below.
-        Supplier<String> task = () -> {
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            return Thread.currentThread().getName();
-        };
-
-        // work with 100 instances of the callable
-        for (int i = 0; i < 100; i++) {
-            CompletableFuture.supplyAsync(task, executor).thenAccept(s -> System.out.println(new Date() + " @ " +
-                    s)).get();
-            CompletableFuture.supplyAsync(task, executor).thenAccept(s -> System.out.println(new Date() + " @ " +
-                    s)).get();
-            CompletableFuture.supplyAsync(task, executor).thenAccept(s -> System.out.println(new Date() + " @ " +
-                    s)).get();
-            CompletableFuture.supplyAsync(task, executor).thenAccept(s -> System.out.println(new Date() + " @ " +
-                    s)).get();
-            // todo warum werden hier einzeln und nicht in 10er-Mengen abgearbeitet?
-        }
-        executor.shutdown();
-    }
 }
