@@ -57,4 +57,10 @@ public class C_08_Annotations {
             doesn't get null.
          */
     }
+
+    @Change(date = "2015-03-15", reason="First version of this method")
+    @Change(date = "2015-03-18", reason="small bug fix")
+    public void repeatableAnnotations() {
+
+    }
 }
