@@ -1,5 +1,9 @@
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -21,4 +25,17 @@ public class C_09_SomeOtherStuff {
         avoided with -XX:MaxMetaspaceSize.
         More at http://stackoverflow.com/questions/20563047/jdk-8-memory-layout-and-garbage-collection
      */
+
+    /**
+     * Ability of the compiler to recognize the type from context improved.
+     */
+    @Test
+    public void improvedTypeDeduction() {
+
+        // Worked since there are generics:
+        List<String> list = new ArrayList<>();
+
+        // Works since Java 8:
+        list = Collections.synchronizedList(new ArrayList<>());
+    }
 }
