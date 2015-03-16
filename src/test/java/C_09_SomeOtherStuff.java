@@ -14,4 +14,11 @@ public class C_09_SomeOtherStuff {
     public void interfacesStaticMethods() {
         assertEquals(1, InterfaceWithStaticMethod.staticMethodWithinAnInterface());
     }
+
+    /*
+        Permanent generation is gone. All data that lived in this fixed-sized memory will be in the new Metaspace
+        that can expand at runtime. This however bloats the JVM process until the machine dies on low memory. Can be
+        avoided with -XX:MaxMetaspaceSize.
+        More at http://stackoverflow.com/questions/20563047/jdk-8-memory-layout-and-garbage-collection
+     */
 }
