@@ -1,5 +1,6 @@
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
@@ -56,23 +57,9 @@ public class C_03_MethodReferences {
     }
 
     @Test
-    public void bla() {
-        // TODO Aus Torstens Java 8 Folie
-
-        Function<Integer, Integer> add37 = (x) -> x + 37;
-        int result = add37.apply(5); // 42
-
-        // Function Chaining:
-
-        Function<Integer, Integer> add37Duplicate = add37.andThen((x) -> x * 2);
-        int chainResult = add37Duplicate.apply(5);
-
-
-    }
-
-    @Test
     public void constructorMethodReferences() {
         BiFunction<String, String, String> concat = (s1, s2) -> s1 + s2;
+        // In the following line, the constructor of Integer is referenced:
         BiFunction<String, String, Integer> concatInts = concat.andThen(Integer::new);
         Integer result = concatInts.apply("1", "2");
         assertEquals(new Integer(12), result);

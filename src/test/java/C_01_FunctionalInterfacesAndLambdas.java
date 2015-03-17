@@ -3,7 +3,9 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.BiFunction;
 import java.util.function.Consumer;
+import java.util.function.Function;
 
 import static org.junit.Assert.assertEquals;
 
@@ -139,6 +141,21 @@ public class C_01_FunctionalInterfacesAndLambdas {
         list5.forEach(i -> System.out.println(i));
         // or
         list5.forEach(System.out::println);
+    }
+
+    /**
+     * To address lambdas, {@link Function} was introduced in Java 8.
+     */
+    @Test
+    public void function() {
+
+        Function<Integer, Integer> add37 = (x) -> x + 37;
+        int result = add37.apply(5); // 42
+
+        // Function Chaining:
+
+        Function<Integer, Integer> add37Duplicate = add37.andThen((x) -> x * 2);
+        int chainResult = add37Duplicate.apply(5);
     }
 
     /*
