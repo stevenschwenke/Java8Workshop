@@ -1,5 +1,10 @@
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.function.Consumer;
+
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -101,4 +106,44 @@ public class C_01_FunctionalInterfacesAndLambdas {
     // bytecode-level.
 
     // TODO Übung: Swing-Button mit ActionListener refactorn. Ein Button mit einzeiligem Body, einen mit mehrzeiligem Body.
+
+    /**
+     * Let's have a look at how Java changed in the past. Our example will be the simple iteration of a list.
+     */
+    @Test
+    public void javaTimeTravel() {
+
+        // Java 1.2
+        List list = new ArrayList(Arrays.asList(1, 2, 3));
+
+        for (int i = 0; i < list.size(); i++) {
+            System.out.println(i);
+        }
+
+        // Java 5
+        List<Integer> list5 = new ArrayList<>(Arrays.asList(1, 2, 3));
+
+        for (Integer i : list5) {
+            System.out.println(i);
+        }
+
+        // Java 8 internal iteration
+        list5.forEach(new Consumer<Integer>() {
+            @Override
+            public void accept(Integer integer) {
+                System.out.println(integer);
+            }
+        });
+
+        // Java 8 Lambdas
+        list5.forEach(i -> System.out.println(i));
+        // or
+        list5.forEach(System.out::println);
+    }
+
+    /*
+        Having understood this, a little party knowledge on the side:
+        - "lambda" comes from the Lambda Calculus which simply is a formal system for computation.
+        - introduced by Alonzo Church and Stephen Cole Kleene in the 1930s.
+     */
 }
