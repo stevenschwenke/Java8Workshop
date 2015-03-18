@@ -1,5 +1,8 @@
 import org.junit.Test;
 
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+import javax.script.ScriptException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -37,5 +40,31 @@ public class C_09_SomeOtherStuff {
 
         // Works since Java 8:
         list = Collections.synchronizedList(new ArrayList<>());
+    }
+
+    /**
+     * Since forever: JavaScript-engine Rhino. Gets replaced with Nashorn in Java 8.
+     * <p>
+     * - Nashorn 2 to 10 times faster than Rhino.
+     * - Enables "free standing JavaScript applications using the jrunscript command-line tool"
+     * (see openjdk.java.net/projects/nashorn).
+     * - Nashorn: 100% ECMA-Skrcipt conform, Rhino just 95.9%
+     */
+    @Test
+    public void javaScript() throws ScriptException {
+        // CLI: run bin/jjs:
+
+        // jjs> print("This is JavaScript!");
+        // jjs> quit();
+
+        // CLI with js file:
+        // bin/jjs d:\myJavaScript.js
+
+        // in Java:
+        ScriptEngineManager factory = new ScriptEngineManager();
+        ScriptEngine nashorn = factory.getEngineByName("nashorn");
+        nashorn.eval("print(\"This is JavaScript in Java\");");
+
+        // There are more features, like compiling code to bytecode. Not looked into here. :)
     }
 }
