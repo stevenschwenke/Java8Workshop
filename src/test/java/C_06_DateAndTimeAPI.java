@@ -51,6 +51,25 @@ public class C_06_DateAndTimeAPI {
     }
 
     /**
+     * Often, a quick performance test is coded to measure the execution duration of code. This can be done a little bit
+     * more easy now.
+     */
+    @Test
+    public void simpleStopWatch() throws InterruptedException {
+        // Java 7
+        Date begin = new Date();
+        Thread.sleep(2000);
+        Date end = new Date();
+        System.out.println(end.getTime() - begin.getTime());
+
+        // Java 8
+        Instant begin2 = Instant.now();
+        Thread.sleep(2000);
+        Instant end2 = Instant.now();
+        System.out.println(Duration.between(begin2, end2).getSeconds());
+    }
+
+    /**
      * Date and Time objects are immutable, i.e. they cannot be altered. If you want to express another date or time,
      * you have to create a new object.
      */
@@ -177,4 +196,10 @@ public class C_06_DateAndTimeAPI {
         // todo
 //        DateTimeFormatter f
     }
+
+    /*
+        Behold: Currently, there is no JPA / Hibernate support for this new API, see
+        https://hibernate.atlassian.net/browse/HHH-8844
+        Use a JPA attribute converter or Hibernate user types.
+     */
 }
