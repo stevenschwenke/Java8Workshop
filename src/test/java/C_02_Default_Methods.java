@@ -41,6 +41,14 @@ public class C_02_Default_Methods {
         System.out.println(gen2.getSomeString());
     }
 
+    /**
+     * This class inherits unrelated defaults for the method foo() and thus cannot exist:
+     */
+//    class NameConflicts implements DefaultMethodSame1, DefaultMethodSame2 {
+//    }
+
+
+
     // Let's take a break here.
     //
     // Default methods seem to be a really nice add-on to the language. However, they have been introduced mainly
