@@ -2,10 +2,7 @@ import org.junit.Test;
 
 import java.time.*;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.Temporal;
-import java.time.temporal.TemporalAdjuster;
-import java.time.temporal.TemporalAdjusters;
-import java.time.temporal.TemporalField;
+import java.time.temporal.*;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
@@ -15,12 +12,56 @@ import java.util.GregorianCalendar;
 public class C_06_DateAndTimeAPI {
 
     /*
-        Objects of type Date and Calendar are mutable, there always are setters. This causes them to be not thread-safe.
+        There are two main problems with the old Date API:
+        1. Objects of type Date and Calendar are mutable, there always are setters. This causes them to be not
+           thread-safe.
+        2. Concepts of date and time were not separated.
 
-        new API: concepts of date and time are separated:
-         java.time.Instant = point in time, represented in milliseconds. Good for machines, bad for humans.
-         java.time.LocalDate = date, java.time.LocalTime = time - both human-readable.
+        Both issues were resolved in the new API. Here's an overview of the new classes:
+
+         java.time.Instant      = point in time, represented in milliseconds. Good for machines, bad for humans.
+         java.time.LocalDate    = date - human-readable, without time zone
+         java.time.LocalTime    = time - human-readable, without time zone.
+         java.time.LocalDateTime = LocalDate + LocalTime without time zone
+         java.time.ZonedDateTime = LocalDate + LocalTime with time zone
+         java.time.YearMonth     = year + month
+         java.time.MonthDay      = month + day
+         java.time.Year          = year
      */
+
+    @Test
+    public void examples() {
+
+        Instant instant = Instant.now();
+        System.out.println("Epoch second: " + instant.getEpochSecond());
+        LocalTime localTime = LocalTime.now();
+        System.out.println("LocalTime: " + localTime);
+        LocalDate localDate = LocalDate.now();
+        System.out.println("LocalDate: " + localDate);
+        LocalDateTime localDateTime = LocalDateTime.now();
+        System.out.println("LocalDateTime: " + localDateTime);
+        ZonedDateTime zonedDateTime = ZonedDateTime.now();
+        System.out.println("ZonedDateTime: " + zonedDateTime);
+        YearMonth yearMonth = YearMonth.now();
+        System.out.println("YearMonth: " + yearMonth);
+        MonthDay monthDay = MonthDay.now();
+        System.out.println("MonthDay: " + monthDay);
+        Year year = Year.now();
+        System.out.println("Year: " + year);
+    }
+
+    /**
+     * Date and Time objects are immutable, i.e. they cannot be altered. If you want to express another date or time,
+     * you have to create a new object.
+     */
+    @Test
+    public void immutable() {
+        LocalDate birthday = LocalDate.of(2015, 7, 19);
+        // No setter methods to change LocalDate! Only possible to create new objects like this:
+        LocalDate birthdayIn2016 = birthday.withYear(2016);
+
+        // Hence, objects are thread-safe.
+    }
 
     /**
      * The new API allows to represent a day and a month independent from the year. This way, recurrent events
@@ -44,17 +85,16 @@ public class C_06_DateAndTimeAPI {
         System.out.println(localDate.getDayOfWeek());
     }
 
-    /**
-     * Date and Time objects are immutable, i.e. they cannot be altered. If you want to express another date or time,
-     * you have to create a new object.
-     */
     @Test
-    public void immutable() {
-        LocalDate birthday = LocalDate.of(2015, 7, 19);
-        // No setter methods to change LocalDate! Only possible to create new objects like this:
-        LocalDate birthdayIn2016 = birthday.withYear(2016);
+    public void period() {
+        LocalDate now = LocalDate.now();
+        LocalDate birthday = LocalDate.of(1984, 07, 19);
 
-        // Hence, objects are thread-safe.
+        Period age = Period.between(birthday, now);
+        long ageDays = ChronoUnit.DAYS.between(birthday, now);
+
+        System.out.println("I'm " + age.getYears() + " years, " + age.getMonths() + " months and " + age.getDays()
+                + " old. That's " + ageDays + " days in total.");
     }
 
     @Test
@@ -131,12 +171,6 @@ public class C_06_DateAndTimeAPI {
         // todo: ISO, japan, ThaiBuddhist etc
     }
 
-    @Test
-    public void period() {
-        // todo
-//        Duration d = new Duration();
-//        Period p = new Period();
-    }
 
     @Test
     public void parsing() {
