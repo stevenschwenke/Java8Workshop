@@ -43,12 +43,22 @@ public class C_09_SomeOtherStuff {
     }
 
     /**
-     * Since forever: JavaScript-engine Rhino. Gets replaced with Nashorn in Java 8.
      * <p>
-     * - Nashorn 2 to 10 times faster than Rhino.
-     * - Enables "free standing JavaScript applications using the jrunscript command-line tool"
-     * (see openjdk.java.net/projects/nashorn).
-     * - Nashorn: 100% ECMA-Skrcipt conform, Rhino just 95.9%
+     * Since forever: JavaScript-engine Rhino. Gets replaced with Nashorn in Java 8.
+     *
+     * <ul>
+     * <li> Nashorn 2 to 10 times faster than Rhino.</li>
+     * <li>Enables "free standing JavaScript applications using the jrunscript command-line tool"
+     * (see openjdk.java.net/projects/nashorn).</li>
+     * <li> Nashorn: 100% ECMA-Skrcipt conform, Rhino just 95.9%</li>
+     * </ul>
+     * </p>
+     * Reasons for Java supporting JavaScript:
+     * <ul>
+     *     <li>enabling user to script dynamically</li>
+     *     <li>establishing JVM as platform for more programming languages</li>
+     * </ul>
+     *
      */
     @Test
     public void javaScript() throws ScriptException {
