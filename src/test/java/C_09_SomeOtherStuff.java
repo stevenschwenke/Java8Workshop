@@ -57,6 +57,8 @@ public class C_09_SomeOtherStuff {
      * <ul>
      *     <li>enabling user to script dynamically</li>
      *     <li>establishing JVM as platform for more programming languages</li>
+     *     <li>script languages have less boiler plate code and are often easier to read</li>
+     *     <li>frontend developer (if there is such a thing these days) can code backend without learning a new language</li>
      * </ul>
      *
      */

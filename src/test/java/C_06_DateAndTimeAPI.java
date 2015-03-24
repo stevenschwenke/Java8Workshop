@@ -27,6 +27,8 @@ public class C_06_DateAndTimeAPI {
          java.time.YearMonth     = year + month
          java.time.MonthDay      = month + day
          java.time.Year          = year
+
+         The new API was strongly influenced by the Joda API (joda.org)
      */
 
     @Test
