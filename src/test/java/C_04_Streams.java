@@ -5,17 +5,13 @@ import java.io.IOException;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.SplittableRandom;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Supplier;
 import java.util.regex.Pattern;
-import java.util.stream.DoubleStream;
-import java.util.stream.IntStream;
-import java.util.stream.LongStream;
-import java.util.stream.Stream;
+import java.util.stream.*;
+
+import static org.junit.Assert.assertTrue;
 
 /**
  * Stream is not a data structure, it doesn't hold data. It just holds references to the underlying stream
@@ -97,6 +93,19 @@ public class C_04_Streams {
         String string = "This is just a random test string!";
         Stream<String> stringStream = Pattern.compile("\\W").splitAsStream(string);
         stringStream.forEach(System.out::println);
+    }
+
+    @Test
+    public void collect() {
+        Stream<String> stream = Stream.of("one", "two", "three");
+        Set<String> stringSet = stream.collect(Collectors.toSet());
+        assertTrue(stringSet.contains("one"));
+        assertTrue(stringSet.contains("two"));
+        assertTrue(stringSet.contains("three"));
+
+        stream = Stream.of("one", "two", "three");
+        String joined = stream.collect(Collectors.joining(", "));
+        System.out.println(joined);
     }
 
     @Test
