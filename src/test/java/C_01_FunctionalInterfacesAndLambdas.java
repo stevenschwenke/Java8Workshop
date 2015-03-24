@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.Predicate;
 
 import static org.junit.Assert.assertEquals;
 
@@ -156,6 +157,35 @@ public class C_01_FunctionalInterfacesAndLambdas {
 
         Function<Integer, Integer> add37Duplicate = add37.andThen((x) -> x * 2);
         int chainResult = add37Duplicate.apply(5);
+    }
+
+    /**
+     * A nice application for functional interfaces is the use of the new {@link java.util.function.Predicate}. A
+     * predicate is a boolean-valued function.
+     */
+    @Test
+    public void predicate() {
+        List<Integer> list = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9);
+
+        System.out.println("Print all numbers:");
+        evaluate(list, (n) -> true);
+
+        System.out.println("\nPrint no numbers:");
+        evaluate(list, (n) -> false);
+
+        System.out.println("Print even numbers:");
+        evaluate(list, (n) -> n % 2 == 0);
+
+        System.out.println("Print numbers greater than 8:");
+        evaluate(list, (n) -> n > 8);
+    }
+
+    private void evaluate(List<Integer> list, Predicate<Integer> predicate) {
+        for (Integer i : list) {
+            if (predicate.test(i)) {
+                System.out.print(i + " ");
+            }
+        }
     }
 
     /*
