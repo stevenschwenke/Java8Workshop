@@ -12,7 +12,7 @@ import static org.junit.Assert.assertEquals;
 /**
  * This class is for small features that didn't fit in the other test classes.
  */
-public class C_09_SomeOtherStuff {
+public class C_10_SomeOtherStuff {
 
     /**
      * Interfaces are allowed to have static methods now.

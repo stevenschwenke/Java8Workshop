@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 /**
  * The official Java GUI framework, JavaFX, also got some new features with Java 8.
  */
-public class C_10_JavaFX extends Application {
+public class C_09_JavaFX extends Application {
 
     /*
         Naming:
