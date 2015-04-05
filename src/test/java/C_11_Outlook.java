@@ -1,7 +1,7 @@
 /**
  * Some cool stuff is planned for the next Java version.
  */
-public class C_10_Outlook {
+public class C_11_Outlook {
 
     /*
         Project Jigsaw:
