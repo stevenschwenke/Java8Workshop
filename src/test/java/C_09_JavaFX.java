@@ -4,11 +4,10 @@ import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
+import org.junit.Test;
 
 import java.time.LocalDate;
 import java.time.chrono.HijrahChronology;
@@ -37,12 +36,12 @@ public class C_09_JavaFX extends Application {
      */
     @Override
     public void start(Stage primaryStage) {
+        VBox root = new VBox();
+
+        // DatePicker
         DatePicker datePicker = new DatePicker();
-
         datePicker.setShowWeekNumbers(true);
-
         setFormattingToGermanDateFormat(datePicker);
-
         setSomeForeignChronologies(datePicker);
 
         Button btn = new Button();
@@ -50,12 +49,15 @@ public class C_09_JavaFX extends Application {
         // Note that output in the console is default formatting, not formatting of the DatePicker!
         btn.setOnAction(event -> System.out.println(datePicker.getValue()));
 
-        BorderPane root = new BorderPane();
-        root.setCenter(datePicker);
-        root.setBottom(btn);
+        HBox datePickerContainer = new HBox();
+        datePickerContainer.setSpacing(10);
+        datePickerContainer.getChildren().add(datePicker);
+        datePickerContainer.getChildren().add(btn);
 
+        root.getChildren().add(datePickerContainer);
+
+        // ListFiltering
         Scene scene = new Scene(root, 300, 250);
-
         primaryStage.setTitle("Hello World!");
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -113,4 +115,6 @@ public class C_09_JavaFX extends Application {
         // Buddhist calendar.
 //        datePicker.setChronology(ThaiBuddhistChronology.INSTANCE);
     }
+
+//    listing 2 abschreiben
 }
