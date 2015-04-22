@@ -1,20 +1,22 @@
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
-import javafx.scene.layout.*;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import org.junit.Test;
 
 import java.time.LocalDate;
-import java.time.chrono.HijrahChronology;
-import java.time.chrono.JapaneseChronology;
-import java.time.chrono.MinguoChronology;
-import java.time.chrono.ThaiBuddhistChronology;
 import java.time.format.DateTimeFormatter;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * The official Java GUI framework, JavaFX, also got some new features with Java 8.
@@ -32,13 +34,15 @@ public class C_09_JavaFX extends Application {
     // @since JavaFX 8.0
 
     /**
-     * New component: DatePicker (finally!) that uses new Date and Time API
+     * New component: DatePicker (finally!) that uses new Date and Time API.
+     * Also: TransformationList -> FilteredList + OrderedList
      */
     @Override
     public void start(Stage primaryStage) {
         VBox root = new VBox();
 
         // DatePicker
+
         DatePicker datePicker = new DatePicker();
         datePicker.setShowWeekNumbers(true);
         setFormattingToGermanDateFormat(datePicker);
@@ -57,12 +61,26 @@ public class C_09_JavaFX extends Application {
         root.getChildren().add(datePickerContainer);
 
         // ListFiltering
+
+        // New TransformationList is a wrapper around a normal list and has two implementations: FilteredList and
+        // SortedList. The following is an example for the FilteredList, SortedList is similar.
+
+        ObservableList<String> list = FXCollections.observableArrayList("one", "two", "three", "four");
+        FilteredList<String> filteredList = new FilteredList<>(list);
+        ListView<String> listView = new ListView<>(filteredList);
+        TextField textField = new TextField();
+        textField.textProperty().addListener((e) -> filteredList.setPredicate((v) -> (v.contains(textField.getText()))));
+        VBox listFilteringContainer = new VBox(textField, listView);
+
+        root.getChildren().add(listFilteringContainer);
+
+        // Setup GUI
+
         Scene scene = new Scene(root, 300, 250);
         primaryStage.setTitle("Hello World!");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
-
 
     /**
      * Sets the formatting of a {@link javafx.scene.control.DatePicker} to the german date format "dd.MM.yyyy".
@@ -116,5 +134,17 @@ public class C_09_JavaFX extends Application {
 //        datePicker.setChronology(ThaiBuddhistChronology.INSTANCE);
     }
 
-//    listing 2 abschreiben
+
+    @Test(expected = Exception.class)
+    public void implementationsOfTransformationListAreImmutable() {
+        ObservableList<String> list = FXCollections.observableArrayList("one", "two", "three", "four");
+        FilteredList<String> filteredList = new FilteredList<>(list);
+
+        // Backing list can be mutated:
+        list.remove(0, 1);
+        assertEquals(3, list.size());
+
+        // All implementations of TransformationList are immutable, hence changing the list will throw an exception:
+        filteredList.add("EXCEPTION!");
+    }
 }
