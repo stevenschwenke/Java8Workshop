@@ -3,10 +3,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -40,6 +37,7 @@ public class C_09_JavaFX extends Application {
     @Override
     public void start(Stage primaryStage) {
         VBox root = new VBox();
+        root.setSpacing(15);
 
         // DatePicker
 
@@ -58,7 +56,7 @@ public class C_09_JavaFX extends Application {
         datePickerContainer.getChildren().add(datePicker);
         datePickerContainer.getChildren().add(btn);
 
-        root.getChildren().add(datePickerContainer);
+        root.getChildren().add(new VBox(new Label("DatePicker:"),datePickerContainer));
 
         // ListFiltering
 
@@ -70,14 +68,14 @@ public class C_09_JavaFX extends Application {
         ListView<String> listView = new ListView<>(filteredList);
         TextField textField = new TextField();
         textField.textProperty().addListener((e) -> filteredList.setPredicate((v) -> (v.contains(textField.getText()))));
-        VBox listFilteringContainer = new VBox(textField, listView);
+        VBox listFilteringContainer = new VBox(new Label("FilteredList:"),textField, listView);
 
         root.getChildren().add(listFilteringContainer);
 
         // Setup GUI
 
         Scene scene = new Scene(root, 300, 250);
-        primaryStage.setTitle("Hello World!");
+        primaryStage.setTitle("JavaFX in Java 8");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
