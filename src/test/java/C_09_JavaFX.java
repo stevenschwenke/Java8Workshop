@@ -2,6 +2,7 @@ import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.concurrent.Task;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
@@ -12,6 +13,8 @@ import org.junit.Test;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 import static org.junit.Assert.assertEquals;
 
@@ -56,7 +59,7 @@ public class C_09_JavaFX extends Application {
         datePickerContainer.getChildren().add(datePicker);
         datePickerContainer.getChildren().add(btn);
 
-        root.getChildren().add(new VBox(new Label("DatePicker:"),datePickerContainer));
+        root.getChildren().add(new VBox(new Label("DatePicker:"), datePickerContainer));
 
         // ListFiltering
 
@@ -68,9 +71,34 @@ public class C_09_JavaFX extends Application {
         ListView<String> listView = new ListView<>(filteredList);
         TextField textField = new TextField();
         textField.textProperty().addListener((e) -> filteredList.setPredicate((v) -> (v.contains(textField.getText()))));
-        VBox listFilteringContainer = new VBox(new Label("FilteredList:"),textField, listView);
+        VBox listFilteringContainer = new VBox(new Label("FilteredList:"), textField, listView);
 
         root.getChildren().add(listFilteringContainer);
+
+        // Task: updateValue
+
+        Task<String> task = new Task<String>() {
+            @Override
+            protected String call() throws Exception {
+                long startTime = System.currentTimeMillis();
+                while (true) {
+                    updateValue("millis since start: " + (System.currentTimeMillis() - startTime));
+                    try {
+                        Thread.sleep(1);
+                    } catch (InterruptedException e) {
+                        System.out.println("Error running task: ");
+                        e.printStackTrace();
+                    }
+                }
+            }
+        };
+        Button button = new Button("Start");
+        button.setOnAction((e) -> Executors.newSingleThreadExecutor().execute(task));
+//        button.textProperty().bind( task.valueProperty().isNull().);
+        Label valueLable = new Label();
+        valueLable.textProperty().bind(task.valueProperty());
+        VBox threadContainer = new VBox(new Label("Task.updateValue()"), button, valueLable);
+        root.getChildren().add(threadContainer);
 
         // Setup GUI
 
