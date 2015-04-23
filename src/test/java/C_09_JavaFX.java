@@ -1,5 +1,4 @@
 import javafx.application.Application;
-import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -14,9 +13,9 @@ import org.junit.Test;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
+import static javafx.beans.binding.Bindings.when;
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -84,18 +83,20 @@ public class C_09_JavaFX extends Application {
                 long startTime = System.currentTimeMillis();
                 while (true) {
                     updateValue(System.currentTimeMillis() - startTime + "");
-                    try {
-                        Thread.sleep(1);
-                    } catch (InterruptedException e) {
-                        System.out.println("Error running task: ");
-                        e.printStackTrace();
-                    }
+                    Thread.sleep(1);
                 }
             }
         };
         Button button = new Button();
-        button.setOnAction((e) -> Executors.newSingleThreadExecutor().execute(task));
-        button.textProperty().bind(Bindings.when(task.valueProperty().isNotNull()).then(task.valueProperty()).otherwise("Start"));
+        button.setOnAction((e) -> {
+            if (task.isRunning()) {
+                task.cancel();
+            } else {
+                // The executor will execute the task only when it didn't run yet. Additional calls will be ignored.
+                Executors.newSingleThreadExecutor().execute(task);
+            }
+        });
+        button.textProperty().bind(when(task.valueProperty().isNotNull()).then(task.valueProperty()).otherwise("Start"));
         VBox threadContainer = new VBox(new Label("Task.updateValue()"), button);
         root.getChildren().add(threadContainer);
 
