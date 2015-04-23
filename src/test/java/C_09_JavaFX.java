@@ -1,4 +1,5 @@
 import javafx.application.Application;
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -82,7 +83,7 @@ public class C_09_JavaFX extends Application {
             protected String call() throws Exception {
                 long startTime = System.currentTimeMillis();
                 while (true) {
-                    updateValue("millis since start: " + (System.currentTimeMillis() - startTime));
+                    updateValue(System.currentTimeMillis() - startTime + "");
                     try {
                         Thread.sleep(1);
                     } catch (InterruptedException e) {
@@ -92,12 +93,10 @@ public class C_09_JavaFX extends Application {
                 }
             }
         };
-        Button button = new Button("Start");
+        Button button = new Button();
         button.setOnAction((e) -> Executors.newSingleThreadExecutor().execute(task));
-//        button.textProperty().bind( task.valueProperty().isNull().);
-        Label valueLable = new Label();
-        valueLable.textProperty().bind(task.valueProperty());
-        VBox threadContainer = new VBox(new Label("Task.updateValue()"), button, valueLable);
+        button.textProperty().bind(Bindings.when(task.valueProperty().isNotNull()).then(task.valueProperty()).otherwise("Start"));
+        VBox threadContainer = new VBox(new Label("Task.updateValue()"), button);
         root.getChildren().add(threadContainer);
 
         // Setup GUI
