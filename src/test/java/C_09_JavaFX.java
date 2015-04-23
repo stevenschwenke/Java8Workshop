@@ -1,4 +1,6 @@
 import javafx.application.Application;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -102,7 +104,7 @@ public class C_09_JavaFX extends Application {
         VBox threadContainer = new VBox(new Label("Task.updateValue()"), button);
         root.getChildren().add(threadContainer);
 
-        // Scheduled Service
+        // new class: Scheduled Service
 
         ScheduledService<Void> service = new ScheduledService<Void>() {
             @Override
@@ -121,8 +123,20 @@ public class C_09_JavaFX extends Application {
         service.setMaximumFailureCount(10);
         service.setMaximumCumulativePeriod(Duration.minutes(2));
         Button startScheduledService = new Button("Start scheduled service");
-        startScheduledService.setOnAction(eventHandler -> {service.start();});
-        root.getChildren().add(new VBox(new Label("ScheduledService"),startScheduledService));
+        startScheduledService.setOnAction(eventHandler -> service.start());
+        root.getChildren().add(new VBox(new Label("ScheduledService"), startScheduledService));
+
+        // New CSS theme Modena is new default theme!
+        Button toggleThemes = new Button();
+        SimpleBooleanProperty modena = new SimpleBooleanProperty(true);
+        toggleThemes.textProperty().bind(Bindings.when(modena).then("Switch to Caspian").otherwise("Switch to Modena"));
+        toggleThemes.setOnAction(eventHandler -> {
+            setUserAgentStylesheet(modena.get() ? STYLESHEET_CASPIAN : STYLESHEET_MODENA);
+            modena.set(getUserAgentStylesheet().equals(STYLESHEET_MODENA));
+        });
+        // (If getUserAgendStylesheet() would be a property, the above code would be way smaller.)
+
+        root.getChildren().add(toggleThemes);
 
         // Setup GUI
 
