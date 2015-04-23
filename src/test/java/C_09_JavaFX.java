@@ -2,12 +2,14 @@ import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.concurrent.ScheduledService;
 import javafx.concurrent.Task;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import javafx.util.StringConverter;
 import org.junit.Test;
 
@@ -100,9 +102,31 @@ public class C_09_JavaFX extends Application {
         VBox threadContainer = new VBox(new Label("Task.updateValue()"), button);
         root.getChildren().add(threadContainer);
 
+        // Scheduled Service
+
+        ScheduledService<Void> service = new ScheduledService<Void>() {
+            @Override
+            protected Task<Void> createTask() {
+                return new Task<Void>() {
+                    @Override
+                    protected Void call() throws Exception {
+                        System.out.println("Do something");
+                        return null;
+                    }
+                };
+            }
+        };
+        service.setRestartOnFailure(true);
+        service.setPeriod(Duration.seconds(5));
+        service.setMaximumFailureCount(10);
+        service.setMaximumCumulativePeriod(Duration.minutes(2));
+        Button startScheduledService = new Button("Start scheduled service");
+        startScheduledService.setOnAction(eventHandler -> {service.start();});
+        root.getChildren().add(new VBox(new Label("ScheduledService"),startScheduledService));
+
         // Setup GUI
 
-        Scene scene = new Scene(root, 300, 250);
+        Scene scene = new Scene(root, 300, 400);
         primaryStage.setTitle("JavaFX in Java 8");
         primaryStage.setScene(scene);
         primaryStage.show();
