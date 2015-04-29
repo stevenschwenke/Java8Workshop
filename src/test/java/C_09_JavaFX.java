@@ -65,11 +65,7 @@ public class C_09_JavaFX extends Application {
         datePickerContainer.getChildren().add(datePicker);
         datePickerContainer.getChildren().add(btn);
 
-        Text datePickerLabelText = new Text("DatePicker");
-        datePickerLabelText.setFill(Color.BLUE);
-        datePickerLabelText.setFont(Font.font("Helvetica", FontWeight.BOLD, 15));
-        TextFlow datePickerLabelTextFlow = new TextFlow(datePickerLabelText);
-        root.getChildren().add(new VBox(datePickerLabelTextFlow, datePickerContainer));
+        root.getChildren().add(new VBox(createTextFlowLabel("DatePicker"), datePickerContainer));
 
         // ListFiltering
 
@@ -81,11 +77,7 @@ public class C_09_JavaFX extends Application {
         ListView<String> listView = new ListView<>(filteredList);
         TextField textField = new TextField();
         textField.textProperty().addListener((e) -> filteredList.setPredicate((v) -> (v.contains(textField.getText()))));
-        Text filteredListLabelText = new Text("ListFiltering");
-        filteredListLabelText.setFill(Color.BLUE);
-        filteredListLabelText.setFont(Font.font("Helvetica", FontWeight.BOLD, 15));
-        TextFlow filteredListLabelTextFlow = new TextFlow(filteredListLabelText);
-        VBox listFilteringContainer = new VBox(filteredListLabelTextFlow, textField, listView);
+        VBox listFilteringContainer = new VBox(createTextFlowLabel("ListFiltering"), textField, listView);
 
         root.getChildren().add(listFilteringContainer);
 
@@ -111,11 +103,7 @@ public class C_09_JavaFX extends Application {
             }
         });
         button.textProperty().bind(when(task.valueProperty().isNotNull()).then(task.valueProperty()).otherwise("Start"));
-        Text taskUpdateValueText = new Text("Task.updateValue()");
-        taskUpdateValueText.setFill(Color.BLUE);
-        taskUpdateValueText.setFont(Font.font("Helvetica", FontWeight.BOLD, 15));
-        TextFlow taskUpdateValueTextFlow = new TextFlow(taskUpdateValueText);
-        VBox threadContainer = new VBox(taskUpdateValueTextFlow, button);
+        VBox threadContainer = new VBox(createTextFlowLabel("Task.updateValue()"), button);
         root.getChildren().add(threadContainer);
 
         // new class: Scheduled Service
@@ -138,11 +126,7 @@ public class C_09_JavaFX extends Application {
         service.setMaximumCumulativePeriod(Duration.minutes(2));
         Button startScheduledService = new Button("Start scheduled service");
         startScheduledService.setOnAction(eventHandler -> service.start());
-        Text scheduledServiceText = new Text("ScheduledService");
-        scheduledServiceText.setFill(Color.BLUE);
-        scheduledServiceText.setFont(Font.font("Helvetica", FontWeight.BOLD, 15));
-        TextFlow scheduledServiceTextFlow = new TextFlow(scheduledServiceText);
-        root.getChildren().add(new VBox(scheduledServiceTextFlow, startScheduledService));
+        root.getChildren().add(new VBox(createTextFlowLabel("ScheduledService"), startScheduledService));
 
         // New CSS theme Modena is new default theme!
         Button toggleThemes = new Button();
@@ -153,11 +137,7 @@ public class C_09_JavaFX extends Application {
             modena.set(getUserAgentStylesheet().equals(STYLESHEET_MODENA));
         });
         // (If getUserAgendStylesheet() would be a property, the above code would be way smaller.)
-        Text toggleThemesText = new Text("toggle themes");
-        toggleThemesText.setFill(Color.BLUE);
-        toggleThemesText.setFont(Font.font("Helvetica", FontWeight.BOLD, 15));
-        TextFlow toggleThemesTextFlow = new TextFlow(toggleThemesText);
-        root.getChildren().add(new VBox(toggleThemesTextFlow, toggleThemes));
+        root.getChildren().add(new VBox(createTextFlowLabel("toggle themes"), toggleThemes));
 
         // Setup GUI
 
@@ -165,6 +145,19 @@ public class C_09_JavaFX extends Application {
         primaryStage.setTitle("JavaFX in Java 8");
         primaryStage.setScene(scene);
         primaryStage.show();
+    }
+
+    /**
+     * Creates a nice-looking label with the new {@link TextFlow} component.
+     *
+     * @param text for the label
+     * @return {@link TextFlow} component that can be added as a child
+     */
+    private TextFlow createTextFlowLabel(String text) {
+        Text datePickerLabelText = new Text(text);
+        datePickerLabelText.setFill(Color.BLUE);
+        datePickerLabelText.setFont(Font.font("Helvetica", FontWeight.BOLD, 15));
+        return new TextFlow(datePickerLabelText);
     }
 
     /**
