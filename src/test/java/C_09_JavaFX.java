@@ -6,12 +6,14 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.concurrent.ScheduledService;
 import javafx.concurrent.Task;
+import javafx.print.*;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.*;
+import javafx.scene.transform.Scale;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.util.StringConverter;
@@ -138,6 +140,27 @@ public class C_09_JavaFX extends Application {
         });
         // (If getUserAgendStylesheet() would be a property, the above code would be way smaller.)
         root.getChildren().add(new VBox(createTextFlowLabel("toggle themes"), toggleThemes));
+
+        // Print support
+        Button print = new Button("Print");
+        print.setOnAction(eventHandler -> {
+            Printer printer = Printer.getDefaultPrinter();
+            PageLayout pageLayout = printer.createPageLayout(Paper.A4, PageOrientation.PORTRAIT, Printer.MarginType.DEFAULT);
+            double scaleX = pageLayout.getPrintableWidth() / root.getBoundsInParent().getWidth();
+            double scaleY = pageLayout.getPrintableHeight() / root.getBoundsInParent().getHeight();
+            Scale printScale = new Scale(scaleX, scaleY);
+            root.getTransforms().add(printScale);
+
+            PrinterJob job = PrinterJob.createPrinterJob();
+            if(job != null) {
+                boolean success = job.printPage(root);
+                if(success) {
+                    job.endJob();
+                }
+            }
+            root.getTransforms().remove(printScale);
+        });
+        root.getChildren().add(new VBox(createTextFlowLabel("Print support"), print));
 
         // Setup GUI
 
