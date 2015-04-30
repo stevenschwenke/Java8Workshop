@@ -183,13 +183,27 @@ public class C_09_JavaFX extends Application {
         });
         root.getChildren().add(new VBox(createTextFlowLabel("Print support"), print));
 
+        // Dialogs
+        Button dialogs = new Button("Dialogs");
+        dialogs.setOnAction(eventHandler -> {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("There are dialogs!");
+            alert.setHeaderText(null);
+            alert.setContentText("Dialogs have been imported from ControlsFX and can now be used with default Java.");
+
+            alert.showAndWait();
+
+            // More examples here: http://code.makery.ch/blog/javafx-dialogs-official/
+        });
+        root.getChildren().add(new VBox(createTextFlowLabel("Dialogs"), dialogs));
+
         // JAVAFX 3D
         // See https://www.youtube.com/watch?v=TS5RvqDsEoU (JavaFX 3D and Leap Motion: a short space adventure )
         // See https://www.youtube.com/watch?v=8_xiv1pV3tI (Rigged Hand Animation with JavaFX and Leap Motion )
 
         // Setup GUI
 
-        Scene scene = new Scene(root, 300, 600);
+        Scene scene = new Scene(root, 300, 680);
         primaryStage.setTitle("JavaFX in Java 8");
         primaryStage.setScene(scene);
         primaryStage.show();
