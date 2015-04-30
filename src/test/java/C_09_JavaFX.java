@@ -148,7 +148,7 @@ public class C_09_JavaFX extends Application {
     }
 
     /**
-     * Creates a nice-looking label with the new {@link TextFlow} component.
+     * Creates a nice-looking label with the new {@link TextFlow} component. It can also display images!
      *
      * @param text for the label
      * @return {@link TextFlow} component that can be added as a child
