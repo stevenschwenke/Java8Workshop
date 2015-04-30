@@ -61,6 +61,14 @@ public class C_06_DateAndTimeAPI {
         System.out.print(DateTimeFormatter.ofPattern("dd.MM.yyyy, HH:mm").format(LocalDateTime.now()));
     }
 
+    @Test
+    public void parsing() {
+        String str = "1969-07-21 02:56";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        LocalDateTime dateTime = LocalDateTime.parse(str, formatter);
+        System.out.println(dateTime);
+    }
+
     /**
      * Often, a quick performance test is coded to measure the execution duration of code. This can be done a little bit
      * more easy now.
@@ -209,12 +217,6 @@ public class C_06_DateAndTimeAPI {
                 + "\n ThaiBuddhist date: " + tdate);
     }
 
-
-    @Test
-    public void parsing() {
-        // todo
-//        DateTimeFormatter f
-    }
 
     /*
         Behold: Currently, there is no JPA / Hibernate support for this new API, see
