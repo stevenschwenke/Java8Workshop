@@ -1,5 +1,6 @@
 import javafx.application.Application;
 import javafx.beans.binding.Bindings;
+import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -68,6 +69,26 @@ public class C_09_JavaFX extends Application {
         datePickerContainer.getChildren().add(btn);
 
         root.getChildren().add(new VBox(createTextFlowLabel("DatePicker"), datePickerContainer));
+
+        // treetableview
+        final TreeItem<String> childNode1 = new TreeItem<>("Child Node 1");
+        final TreeItem<String> childNode2 = new TreeItem<>("Child Node 2");
+        final TreeItem<String> childNode3 = new TreeItem<>("Child Node 3");
+        final TreeItem<String> rootTreeItem = new TreeItem<>("Root node");
+        rootTreeItem.setExpanded(true);
+        rootTreeItem.getChildren().setAll(childNode1, childNode2, childNode3);
+        TreeTableColumn<String,String> column = new TreeTableColumn<>("Column");
+        column.setPrefWidth(150);
+        column.setCellValueFactory((TreeTableColumn.CellDataFeatures<String, String> p) ->
+                new ReadOnlyStringWrapper(p.getValue().getValue()));
+
+        final TreeTableView<String> treeTableView = new TreeTableView<>(rootTreeItem);
+        treeTableView.getColumns().add(column);
+        treeTableView.setPrefWidth(152);
+        treeTableView.setMinHeight(130);
+        treeTableView.setPrefHeight(130);
+        treeTableView.setShowRoot(true);
+        root.getChildren().add(new VBox(createTextFlowLabel("TreeTableView"), treeTableView));
 
         // ListFiltering
 
@@ -164,7 +185,7 @@ public class C_09_JavaFX extends Application {
 
         // Setup GUI
 
-        Scene scene = new Scene(root, 300, 400);
+        Scene scene = new Scene(root, 300, 600);
         primaryStage.setTitle("JavaFX in Java 8");
         primaryStage.setScene(scene);
         primaryStage.show();
