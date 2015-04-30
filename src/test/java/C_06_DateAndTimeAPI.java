@@ -1,6 +1,10 @@
 import org.junit.Test;
 
 import java.time.*;
+import java.time.chrono.HijrahDate;
+import java.time.chrono.JapaneseDate;
+import java.time.chrono.MinguoDate;
+import java.time.chrono.ThaiBuddhistDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.*;
 import java.util.Date;
@@ -50,6 +54,11 @@ public class C_06_DateAndTimeAPI {
         System.out.println("MonthDay: " + monthDay);
         Year year = Year.now();
         System.out.println("Year: " + year);
+    }
+
+    @Test
+    public void formatting() {
+        System.out.print(DateTimeFormatter.ofPattern("dd.MM.yyyy, HH:mm").format(LocalDateTime.now()));
     }
 
     /**
@@ -189,7 +198,15 @@ public class C_06_DateAndTimeAPI {
 
     @Test
     public void calendarSystems() {
-        // todo: ISO, japan, ThaiBuddhist etc
+        LocalDateTime ldt = LocalDateTime.now();
+        HijrahDate hdate = HijrahDate.from(ldt);
+        JapaneseDate jdate = JapaneseDate.from(ldt);
+        MinguoDate mdate = MinguoDate.from(ldt);
+        ThaiBuddhistDate tdate = ThaiBuddhistDate.from(ldt);
+
+        System.out.println(" Today: " + DateTimeFormatter.ofPattern("dd.MM.yyyy, HH:mm").format(ldt) + "\n Hijrah date: " + hdate
+                + "\n Japanese date: " + jdate + "\n Minguo date: " + mdate
+                + "\n ThaiBuddhist date: " + tdate);
     }
 
 

@@ -8,8 +8,6 @@ import static org.junit.Assert.assertNotNull;
  */
 public class C_02_Default_Methods {
 
-    // TODO Move Default Methods to the beginning, before functional Interfaces?
-
     @Test
     public void interfaceWithDefaultMethod() {
         InterfaceWithDefaultMethod i = new DefaultMethodImplementingEmptyClass();

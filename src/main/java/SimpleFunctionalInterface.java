@@ -4,7 +4,7 @@
 public interface SimpleFunctionalInterface {
 
     // This is the one and only abstract method allowed in this functional interface.
-    public int returnAnswerToUltimateQuestionOfLifeTheUniverseAndEverything();
+    public int returnAnswerToUltimateQuestion();
 
     // That one is not allowed:
     // public int returnAnotherAnswerToUltimateQuestionOfLifeTheUniverseAndEverything();

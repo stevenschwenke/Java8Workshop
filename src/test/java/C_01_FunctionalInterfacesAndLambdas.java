@@ -3,7 +3,6 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -26,8 +25,7 @@ public class C_01_FunctionalInterfacesAndLambdas {
     public void normalInterfaceOnlyOneAbstractMethod() {
 
         SimpleFunctionalInterface i = new DeepThought();
-        // TODO zu lange Methode
-        assertEquals(42, i.returnAnswerToUltimateQuestionOfLifeTheUniverseAndEverything());
+        assertEquals(42, i.returnAnswerToUltimateQuestion());
 
         // -> Functional Interface is annotated as such, but is implemented by a normal class. Boring!
     }
@@ -93,7 +91,6 @@ public class C_01_FunctionalInterfacesAndLambdas {
         };
 
         assertEquals(3, impl.sumItUp(1, 2));
-        // TODO Carsten fragen: Bei Entw-Treffen statische Klassenvariable trotzdem verändern?
     }
 
     /**
