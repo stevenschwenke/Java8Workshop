@@ -183,6 +183,10 @@ public class C_09_JavaFX extends Application {
         });
         root.getChildren().add(new VBox(createTextFlowLabel("Print support"), print));
 
+        // JAVAFX 3D
+        // See https://www.youtube.com/watch?v=TS5RvqDsEoU (JavaFX 3D and Leap Motion: a short space adventure )
+        // See https://www.youtube.com/watch?v=8_xiv1pV3tI (Rigged Hand Animation with JavaFX and Leap Motion )
+
         // Setup GUI
 
         Scene scene = new Scene(root, 300, 600);
