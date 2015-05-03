@@ -9,6 +9,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.*;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Set;
 
 /**
  * Because of several problems, there are alternatives to the old java.util.Date and java.util.Calendar classes.
@@ -201,7 +202,18 @@ public class C_06_DateAndTimeAPI {
         ZoneId + ZoneOffset + ZoneRules
          */
 
-        // todo some examples, please!
+        ZoneId losAngeles = ZoneId.of("America/Los_Angeles");
+        ZoneId berlin = ZoneId.of("Europe/Berlin");
+        LocalDateTime dateTime = LocalDateTime.of(2014, 02, 20, 12, 0);
+        ZonedDateTime berlinDateTime = ZonedDateTime.of(dateTime, berlin);
+        ZonedDateTime losAngelesDateTime = berlinDateTime.withZoneSameInstant(losAngeles);
+
+        int offsetInSeconds = losAngelesDateTime.getOffset().getTotalSeconds();
+        Set<String> allZoneIds = ZoneId.getAvailableZoneIds();
+        LocalDateTime date = LocalDateTime.of(2013, Month.JULY, 20, 3, 30);
+        ZoneOffset offset = ZoneOffset.of("+05:00");
+        OffsetDateTime plusFive = OffsetDateTime.of(date, offset);
+        OffsetDateTime minusTwo = plusFive.withOffsetSameInstant(ZoneOffset.ofHours(-2));
     }
 
     @Test
