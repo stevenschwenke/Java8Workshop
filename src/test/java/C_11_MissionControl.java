@@ -22,7 +22,6 @@ public class C_11_MissionControl {
             Triggers,
             Memory -> Heap Histogram (Click on "Refresh Heap Histogram" two times)
             Threads -> Deadlock-Detection + "Lock Owner Name"
-            -> TODO Prepare example, maybe a "bad application" with lots of memory usage and deadlock?
 
         FLIGHT RECORDING
         =================
