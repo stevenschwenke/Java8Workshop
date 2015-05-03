@@ -30,13 +30,13 @@ Content
 8. Annotations
 9. JavaFX
 10. Other stuff
-11. Outlook
+11. MissionControl
+12. Outlook
 
 TODO
 ----------
 - together invent exercises for each chapter
 - Parallel streams are supposed to be faster. However, several intelligent people suggested to never use it because 
 of thread issues. Read into that!
-- new JVM monitor
 
     
