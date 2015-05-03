@@ -234,5 +234,7 @@ public class C_06_DateAndTimeAPI {
         Behold: Currently, there is no JPA / Hibernate support for this new API, see
         https://hibernate.atlassian.net/browse/HHH-8844
         Use a JPA attribute converter or Hibernate user types.
+
+        More information at http://java.dzone.com/articles/deeper-look-java-8-date-and
      */
 }
