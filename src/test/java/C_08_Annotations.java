@@ -63,4 +63,8 @@ public class C_08_Annotations {
     public void repeatableAnnotations() {
 
     }
+
+    // Repetition is a source of learning:
+    // Remember: Callable is designed to be used with executor, not stand-alone.
+    // Since Java 8, fluent API possible even with concurrent code.
 }

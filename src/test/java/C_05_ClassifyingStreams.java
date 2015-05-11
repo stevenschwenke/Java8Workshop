@@ -93,4 +93,10 @@ public class C_05_ClassifyingStreams {
     it has to copy the whole stream in order to compare its elements.
      */
 
+    // Repetition is a source of learning:
+    // What is a stream?
+    // If the backing list of a stream is altered, what will happen to the stream?
+    // Which kinds of operations are there?
+    // Given a parallel stream that is executed a number of times. What can we say with certainty about the order
+    // of execution of the operations?
 }

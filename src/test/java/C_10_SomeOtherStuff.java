@@ -80,5 +80,8 @@ public class C_10_SomeOtherStuff {
         // There are more features, like compiling code to bytecode. Not looked into here. :)
     }
 
-    // Java Mission Control: jmc.exe -> youtube durchsuchen, was kann das ding?
+    // Repetition is a source of learning:
+    // There's a new class in Java 8 which allows filtering in lists. What's the name of this class?
+    // There's a new method in the Task-class that gives information about the progress of a task. What's its name?
+    // What does the new ScheduledService class do?
 }

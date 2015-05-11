@@ -61,4 +61,9 @@ public class C_02_Default_Methods {
 
     // The above is the reason there are no exercises in this chapter.
 
+    // Repetition is a source of learning:
+    // What is a functional interface?
+    // Is the annotation @FunctionalInterface necessary?
+    // What is a lambda?
+    // What means "effectively final"?
 }

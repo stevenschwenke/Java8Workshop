@@ -181,4 +181,8 @@ public class C_04_Streams {
     // ... and many more streams at java doc for java.util.stream
     // http://docs.oracle.com/javase/8/docs/api/java/util/stream/package-summary.html
 
+    // Repetition is a source of learning:
+    // What are method references?
+    // When are method references called?
+    // Can there be a method reference for a constructor?
 }

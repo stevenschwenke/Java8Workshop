@@ -287,4 +287,8 @@ public class C_09_JavaFX extends Application {
         // All implementations of TransformationList are immutable, hence changing the list will throw an exception:
         filteredList.add("EXCEPTION!");
     }
+
+    // Repetition is a source of learning:
+    // What is the main change for annotations in Java 8?
+    // Can one position of code be annotated with a specific annotation more than once?
 }

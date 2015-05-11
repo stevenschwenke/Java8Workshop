@@ -211,4 +211,8 @@ public class C_07_Concurrency {
     - better accumulators
     - new lock: StampedLock
     */
+
+    // Repetition is a source of learning:
+    // Why are Date and Time objects mutable?
+    // -> Only just one question here because code samples for specific problems can be searched when used.
 }
