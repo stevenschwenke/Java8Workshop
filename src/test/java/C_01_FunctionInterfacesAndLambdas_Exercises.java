@@ -1,10 +1,59 @@
+import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Exercises for chapter 1: functional interfaces and lambdas.
  */
 public class C_01_FunctionInterfacesAndLambdas_Exercises {
 
-    // TODO: I don't have a clue what exercises are appropriate here. Do you know any?
-    // Refactoring exercise would be nice. Refactor some spaghetti code with lambdas so it gets readable.
+    /*
+        Task:
+        Write the following code using both functional interfaces and lambdas:
+        1. Interface "Drivable" for a thing that can drive. Driving things return a String when being asked to drive.
+        2. Class "GermanAutobahn" that holds any number of Drivables. There has to be a method printTrafficReport()
+           that prints a messages what's currently going on on the autobahn.
+        3. Test-method that creates a GermanAutobahn, sets a number of Drivables in it and prints a traffic report to
+           console.
+     */
 
 
+
+
+
+    // Intentionally left blank
+
+
+
+
+
+
+    public interface Drivable {
+        public String drive();
+    }
+
+    public class GermanAutobahn {
+
+        private List<Drivable> driveables = new ArrayList<>();
+
+        public void addDrivable(Drivable d) {
+            driveables.add(d);
+        }
+
+        public void printTrafficReport() {
+            System.out.println("On the autobahn there are:");
+            driveables.forEach(drivable -> {
+                System.out.println(drivable.drive());
+            });
+        }
+    }
+
+    @Test
+    public void test() {
+        GermanAutobahn germanAutobahn = new GermanAutobahn();
+        germanAutobahn.addDrivable(() -> "Driving blue car");
+        germanAutobahn.addDrivable(() -> "Driving red car");
+        germanAutobahn.printTrafficReport();
+    }
 }
