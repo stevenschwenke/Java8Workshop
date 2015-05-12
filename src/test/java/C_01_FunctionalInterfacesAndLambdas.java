@@ -105,8 +105,6 @@ public class C_01_FunctionalInterfacesAndLambdas {
     // The execution of Lambdas does not generate anonymous classes. Lambdas are called with invokedynamic right at
     // bytecode-level.
 
-    // TODO Übung: Swing-Button mit ActionListener refactorn. Ein Button mit einzeiligem Body, einen mit mehrzeiligem Body.
-
     /**
      * Let's have a look at how Java changed in the past. Our example will be the simple iteration of a list.
      */
