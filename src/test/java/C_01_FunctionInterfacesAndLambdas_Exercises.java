@@ -29,8 +29,10 @@ public class C_01_FunctionInterfacesAndLambdas_Exercises {
 
 
 
+
+
     public interface Drivable {
-        public String drive();
+        String drive();
     }
 
     public class GermanAutobahn {
@@ -43,9 +45,7 @@ public class C_01_FunctionInterfacesAndLambdas_Exercises {
 
         public void printTrafficReport() {
             System.out.println("On the autobahn there are:");
-            driveables.forEach(drivable -> {
-                System.out.println(drivable.drive());
-            });
+            driveables.forEach(x -> System.out.println(x));
         }
     }
 
