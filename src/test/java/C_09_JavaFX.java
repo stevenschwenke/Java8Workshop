@@ -179,6 +179,8 @@ public class C_09_JavaFX extends Application {
                     job.endJob();
                 }
             }
+
+            // Don't forget to remove printer scaling here because otherwise your app looks bad!
             root.getTransforms().remove(printScale);
         });
         root.getChildren().add(new VBox(createTextFlowLabel("Print support"), print));
