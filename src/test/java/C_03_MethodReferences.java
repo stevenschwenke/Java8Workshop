@@ -58,10 +58,8 @@ public class C_03_MethodReferences {
 
     @Test
     public void constructorMethodReferences() {
-        BiFunction<String, String, String> concat = (s1, s2) -> s1 + s2;
-        // In the following line, the constructor of Integer is referenced:
-        BiFunction<String, String, Integer> concatInts = concat.andThen(Integer::new);
-        Integer result = concatInts.apply("1", "2");
-        assertEquals(new Integer(12), result);
+        Function<Integer, Integer> x =  Integer::new;
+        Integer constructedInteger = x.apply(42);
+        assertEquals(new Integer(42), constructedInteger);
     }
 }
