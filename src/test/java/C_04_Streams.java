@@ -174,7 +174,7 @@ public class C_04_Streams {
         // this generator is not "shared" between threads, it's "splitted". Also, it's faster then Math.random(). :)
 
         DoubleStream randomStreamWithThreeDoubles = new SplittableRandom().doubles(3);
-        DoubleStream threeRandomNumbersBetween0And100 = new SplittableRandom().doubles(3, 0, 10);
+        DoubleStream threeRandomNumbersBetween0And100 = new SplittableRandom().doubles(3, 0, 100);
         // actually, the above is [0, 100) = including 0 and < 100
     }
 
