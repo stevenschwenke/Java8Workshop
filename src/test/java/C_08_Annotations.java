@@ -2,9 +2,6 @@ import org.junit.Test;
 
 import java.util.List;
 
-/**
- *
- */
 @JavaVersion("1.5")
 public class C_08_Annotations {
 
