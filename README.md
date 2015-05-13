@@ -10,6 +10,11 @@ interested in the new features of Java 8 (all updates included). Goals of the wo
 - having a set of code examples to use as templates
 - having a better knowledge about what Java version brings which features - however focus of this course is Java 8!
 
+How to use this
+-----------------
+This repository is supposed to be a code base for own experiments and a reference to go to while writing own code.
+Hence, it is not necessary to vocally explain every line of code to the participants. 
+
 Content
 ---------
 1. functional interfaces and lambdas + exercises

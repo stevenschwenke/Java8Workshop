@@ -128,13 +128,13 @@ public class C_05_Streams_Exercises {
         System.out.println("Sequential:");
         Stream<Integer> seqStream = Stream.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
         seqStream.forEach(i -> {
-            System.out.println(Thread.currentThread().getName() + ": i");
+            System.out.println(Thread.currentThread().getName() + ": "+ i);
         });
 
         System.out.println("Parallel:");
         Stream<Integer> parallelStream = Stream.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10).parallel();
         parallelStream.forEach(i -> {
-            System.out.println(Thread.currentThread().getName() + ": i");
+            System.out.println(Thread.currentThread().getName() + ": "+ i);
         });
 
         // ForkJoinPool uses the number of physical processors but can be configured to use an arbitrary number of
