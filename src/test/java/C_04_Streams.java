@@ -178,6 +178,14 @@ public class C_04_Streams {
         // actually, the above is [0, 100) = including 0 and < 100
     }
 
-    // ... and many more streams at java doc for java.util.stream
-    // http://docs.oracle.com/javase/8/docs/api/java/util/stream/package-summary.html
+    /*
+
+        ... and many more streams at java doc for java.util.stream
+        http://docs.oracle.com/javase/8/docs/api/java/util/stream/package-summary.html
+
+        Important side note: Parallel streams are supposed to be faster. However, there are pitfalls. Also, intelligent
+        people suggested to never use it because of thread issues. Read into that at
+        http://java.dzone.com/articles/think-twice-using-java-8
+        http://zeroturnaround.com/rebellabs/java-parallel-streams-are-bad-for-your-health/
+     */
 }
