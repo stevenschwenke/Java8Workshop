@@ -240,6 +240,4 @@ public class C_06_DateAndTimeAPI {
         More information at http://java.dzone.com/articles/deeper-look-java-8-date-and
      */
 
-    // Repetition is a source of learning:
-
 }
