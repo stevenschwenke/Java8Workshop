@@ -145,6 +145,7 @@ public class C_07_Concurrency {
                 }
 
                 if (!quickTask.isDone()) {
+                    // Waiting for the first task to finish.
                     System.out.println("quickTask output: " + quickTask.get());
                 }
 
