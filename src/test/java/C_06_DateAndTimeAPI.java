@@ -68,6 +68,8 @@ public class C_06_DateAndTimeAPI {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         LocalDateTime dateTime = LocalDateTime.parse(str, formatter);
         System.out.println(dateTime);
+
+        // General knowledge: Why did I choose that date and time? :)
     }
 
     /**
