@@ -288,6 +288,10 @@ public class C_09_JavaFX extends Application {
         filteredList.add("EXCEPTION!");
     }
 
+    /*
+        I cannot be sure that everyone of the attendees is keen in writing JavaFX code. Hence, no exercises.
+     */
+
     // Repetition is a source of learning:
     // What is the main change for annotations in Java 8?
     // Can one position of code be annotated with a specific annotation more than once?

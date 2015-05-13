@@ -239,6 +239,5 @@ public class C_06_DateAndTimeAPI {
      */
 
     // Repetition is a source of learning:
-    // When do intermediate operations get executed?
-    // Is every single intermediate operation executed in every stream?
+
 }

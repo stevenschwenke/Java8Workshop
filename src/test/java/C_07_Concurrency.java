@@ -212,6 +212,11 @@ public class C_07_Concurrency {
     - new lock: StampedLock
     */
 
+    /*
+        Concurrency should really be explained more in a separate tutorial and is scratched only slightly here. Hence,
+        no exercises.
+     */
+
     // Repetition is a source of learning:
     // Why are Date and Time objects mutable?
     // -> Only just one question here because code samples for specific problems can be searched when used.

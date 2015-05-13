@@ -64,11 +64,4 @@ public class C_03_MethodReferences {
         Integer result = concatInts.apply("1", "2");
         assertEquals(new Integer(12), result);
     }
-
-    // Repetition is a source of learning:
-    // What are default methods?
-    // Why have they been introduced?
-    // Given an interface with a default method and an implementing class that has a method with the same signature
-    // as the default method. Which implementation will be called?
-
 }
