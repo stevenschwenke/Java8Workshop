@@ -8,18 +8,17 @@ public class C_04_Streams_Exercises {
         a) Create a stream with the names of the attendants of this course. Traverse the stream and print out
            the names.
         b) Create a parallel stream and do the same. Is the output different? Why?
-     */
 
-    /*
         Task 2:
         Expand your code from task 1 and filter out every name containing the letter "e". How many elements does
         the stream have now?
-     */
 
-    /*
         Task 3:
         See task 2 from chapter 1. Use streams to simplify the Test.
      */
+
+
+
 
 
 
