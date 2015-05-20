@@ -6,7 +6,10 @@ import javax.script.ScriptException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Stream;
 
+import static junit.framework.Assert.fail;
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -45,7 +48,7 @@ public class C_10_SomeOtherStuff {
     /**
      * <p>
      * Since forever: JavaScript-engine Rhino. Gets replaced with Nashorn in Java 8.
-     *
+     * <p>
      * <ul>
      * <li> Nashorn 2 to 10 times faster than Rhino.</li>
      * <li>Enables "free standing JavaScript applications using the jrunscript command-line tool"
@@ -55,12 +58,11 @@ public class C_10_SomeOtherStuff {
      * </p>
      * Reasons for Java supporting JavaScript:
      * <ul>
-     *     <li>enabling user to script dynamically</li>
-     *     <li>establishing JVM as platform for more programming languages</li>
-     *     <li>script languages have less boiler plate code and are often easier to read</li>
-     *     <li>frontend developer (if there is such a thing these days) can code backend without learning a new language</li>
+     * <li>enabling user to script dynamically</li>
+     * <li>establishing JVM as platform for more programming languages</li>
+     * <li>script languages have less boiler plate code and are often easier to read</li>
+     * <li>frontend developer (if there is such a thing these days) can code backend without learning a new language</li>
      * </ul>
-     *
      */
     @Test
     public void javaScript() throws ScriptException {
@@ -79,6 +81,56 @@ public class C_10_SomeOtherStuff {
 
         // There are more features, like compiling code to bytecode. Not looked into here. :)
     }
+
+    @Test
+    public void optional() {
+
+     /*
+        java.util.Optional
+
+        - can contain a value or be empty - in other words: has an optional value
+        - answers the question if there is a result or not (and, if present, encapsulates the result)
+        - return-type of some stream operations
+     */
+
+        // This is easy:
+        Stream<Integer> integerStream = Stream.of(-2, -1, 0, 1, 2);
+        int sum = integerStream.reduce(0, (a, b) -> a + b);
+        assertEquals(0, sum);
+
+        // The sum of this empty stream is 0, as above. However, this 0 results from the identity
+        // given to the reduce() - method. So in this case, the result is of complete different nature.
+        Stream<Integer> emptyStream = Stream.of();
+        sum = emptyStream.reduce(0, (a, b) -> a + b);
+        assertEquals(0, sum);
+
+        // Here comes the Optional:
+        emptyStream = Stream.of(-2,-1,0,1,2);
+        Optional<Integer> optional = emptyStream.reduce((a, b) -> a + b);
+        assertEquals(0, optional.get().intValue()); // OK
+
+        emptyStream = Stream.of();
+        optional = emptyStream.reduce((a, b) -> a + b);
+//        assertEquals(0, optional.get().intValue()); // "NoSuchElementExceptino: No value present"
+
+        // Better:
+        if(optional.isPresent()) {
+            assertEquals(0, optional.get().intValue());
+        } else {
+            fail("Hey, your stream was empty!");
+        }
+
+        // -> Optional as a NullObject (http://en.wikipedia.org/wiki/Null_Object_pattern)
+
+        // Creating Optional objects:
+        Optional.empty();
+        Optional.of("String");
+        Optional.ofNullable(null);
+
+        // And now all together with some eye candy:
+        Stream.of(-2,-1,0,1,2).reduce((a,b)->a+b).ifPresent(s -> System.out.println(s));
+    }
+
 
     // Repetition is a source of learning:
     // There's a new class in Java 8 which allows filtering in lists. What's the name of this class?
