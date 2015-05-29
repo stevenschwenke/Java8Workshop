@@ -8,7 +8,7 @@ import java.util.function.Predicate;
 /**
  * Exercises for chapter 1: functional interfaces and lambdas.
  */
-public class C_01_FunctionInterfacesAndLambdas_Exercises {
+public class C_01_FunctionalInterfacesAndLambdas_Exercises {
 
     /*
         Task 1:
@@ -47,7 +47,7 @@ public class C_01_FunctionInterfacesAndLambdas_Exercises {
 
         public void printTrafficReport() {
             System.out.println("On the autobahn there are:");
-            driveables.forEach(x -> System.out.println(x));
+            driveables.forEach(x -> System.out.println(x.drive()));
         }
     }
 

@@ -115,7 +115,7 @@ public class C_01_FunctionalInterfacesAndLambdas {
         List list = new ArrayList(Arrays.asList(1, 2, 3));
 
         for (int i = 0; i < list.size(); i++) {
-            System.out.println(i);
+            System.out.println(list.get(i));
         }
 
         // Java 5
@@ -171,7 +171,7 @@ public class C_01_FunctionalInterfacesAndLambdas {
         System.out.println("Print even numbers:");
         evaluate(list, (n) -> n % 2 == 0);
 
-        System.out.println("Print numbers greater than 8:");
+        System.out.println("\nPrint numbers greater than 8:");
         evaluate(list, (n) -> n > 8);
     }
 
