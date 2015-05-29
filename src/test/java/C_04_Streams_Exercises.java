@@ -29,7 +29,7 @@ public class C_04_Streams_Exercises {
 
 
     /*
-        Solution task 1: Remove evaluate-method and use the following code:
+        Solution task 3: Remove evaluate-method and use the following code:
 
         Stream<Drivable> goodCarsStream = drivables.stream().filter(predicate);
         goodCarsStream.forEach(o -> System.out.println(o.drive()));
