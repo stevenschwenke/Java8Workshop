@@ -4,6 +4,7 @@
 public class C_11_MissionControl {
     /*
         See http://www.oracle.com/technetwork/java/javaseproducts/mission-control/java-mission-control-1998576.html
+        and https://www.youtube.com/watch?v=ORHVOmxnxbo
 
         MissionControl "JMC" = JMX Console + FlightRecorder "JFR"
 

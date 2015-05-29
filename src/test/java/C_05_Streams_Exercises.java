@@ -28,6 +28,9 @@ public class C_05_Streams_Exercises {
                 return o > 0.5;
             }
         }).forEach((x) -> System.out.println(x));
+
+        // You can also write it like this:
+        Stream.generate(Math::random).limit(3).filter(o -> o > 0.5).forEach(System.out::println);
     }
 
     // Exercise 2 - doingMathWithLambdas
