@@ -17,6 +17,7 @@ Hence, it is not necessary to vocally explain every line of code to the particip
 
 Content
 ---------
+0. concepts of Java 1.5: Generics, for-each-loop and varargs
 1. functional interfaces and lambdas + exercises
 2. default methods
 3. method references + exercises
