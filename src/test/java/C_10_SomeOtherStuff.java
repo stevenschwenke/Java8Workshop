@@ -53,7 +53,7 @@ public class C_10_SomeOtherStuff {
      * <li> Nashorn 2 to 10 times faster than Rhino.</li>
      * <li>Enables "free standing JavaScript applications using the jrunscript command-line tool"
      * (see openjdk.java.net/projects/nashorn).</li>
-     * <li> Nashorn: 100% ECMA-Skrcipt conform, Rhino just 95.9%</li>
+     * <li> Nashorn: 100% ECMA-Script conform, Rhino just 95.9%</li>
      * </ul>
      * </p>
      * Reasons for Java supporting JavaScript:
@@ -111,7 +111,7 @@ public class C_10_SomeOtherStuff {
 
         emptyStream = Stream.of();
         optional = emptyStream.reduce((a, b) -> a + b);
-//        assertEquals(0, optional.get().intValue()); // "NoSuchElementExceptino: No value present"
+//        assertEquals(0, optional.get().intValue()); // "NoSuchElementException: No value present"
 
         // Better:
         if(optional.isPresent()) {
