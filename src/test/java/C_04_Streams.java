@@ -66,11 +66,15 @@ public class C_04_Streams {
 
         // This stream has two intermediate operations and one terminal operation (println):
         System.out.println("First stream:");
-        Stream.generate(Math::random).limit(3).sorted().forEach(System.out::println);
+        Stream<Double> stream1 = Stream.generate(Math::random);
+        stream1.limit(3).sorted().forEach(System.out::println);
+        stream1.close();
 
         // That is the same as above with a lambda expression:
         System.out.println("\n2nd stream:");
-        Stream.generate(Math::random).limit(3).sorted().forEach((x) -> System.out.println(x));
+        Stream<Double> stream2 = Stream.generate(Math::random);
+        stream2.limit(3).sorted().forEach((x) -> System.out.println(x));
+        stream2.close();
     }
 
     @Test
@@ -86,6 +90,8 @@ public class C_04_Streams {
         Stream<Long> inefficientLongStream = Stream.of(0L, 1L, 2L, 3L);
 
         DoubleStream doubleStream = DoubleStream.of(0.0d, 0.5d);
+
+        // (Streams intentionally not closed here)
     }
 
     @Test
@@ -93,6 +99,7 @@ public class C_04_Streams {
         String string = "This is just a random test string!";
         Stream<String> stringStream = Pattern.compile("\\W").splitAsStream(string);
         stringStream.forEach(System.out::println);
+        stringStream.close();
     }
 
     @Test
@@ -105,6 +112,7 @@ public class C_04_Streams {
 
         stream = Stream.of("one", "two", "three");
         String joined = stream.collect(Collectors.joining(", "));
+        stream.close();
         System.out.println(joined);
     }
 
@@ -112,9 +120,17 @@ public class C_04_Streams {
     public void fileStreams() throws IOException {
         DirectoryStream<Path> directoryStream = Files.newDirectoryStream(new File("src/main/java").toPath());
         directoryStream.forEach(System.out::println);
+        directoryStream.close();
 
         Stream<String> linesStream = Files.lines(new File("src/main/java/DeepThought.java").toPath());
         linesStream.forEach(System.out::println);
+        linesStream.close();
+
+        // Line by line reading is done without reading the whole file into memory, see http://java.dzone.com/articles/understanding-java-8-streams-1 :
+        // "Collections are in-memory data structures which hold elements within it. Each element in the collection is computed before it actually becomes a part of that collection. On the other hand Streams are fixed data structures which computes the elements on-demand basis.
+        // The Java 8 Streams can be seen as lazily constructed Collections, where the values are computed when user demands for it. Actual Collections behave absolutely opposite to it and they are set of eagerly computed values (no matter if the user demands for a particular value or not)."
+        // and http://winterbe.com/posts/2015/03/25/java8-examples-string-number-math-files/ :
+        // "As an memory-efficient alternative you could use the method Files.lines. Instead of reading all lines into memory at once, this method reads and streams each line one by one via functional streams."
     }
 
     @Test
@@ -123,6 +139,10 @@ public class C_04_Streams {
 
         Stream<String> parallelStream = stringList.parallelStream();
         parallelStream.forEach(System.out::println);
+        parallelStream.close();
+
+        // Advanced configuration of parallel streams via custom thread pool,
+        // see http://stackoverflow.com/questions/21163108/custom-thread-pool-in-java-8-parallel-stream
     }
 
     @Test
@@ -139,19 +159,23 @@ public class C_04_Streams {
 
         // 1. calculating the sum with a sequential stream
         long start = System.currentTimeMillis();
-        Double sumSequential = randomDoubleList.stream().reduce((aDouble, aDouble2) -> aDouble + aDouble2).get();
+        Stream<Double> sequentialStream = randomDoubleList.stream();
+        Double sumSequential = sequentialStream.reduce((aDouble, aDouble2) -> aDouble + aDouble2).get();
         long end = System.currentTimeMillis();
         long durationSequential = end - start;
         System.out.println("Sequential calculated sum = " + sumSequential);
         System.out.println("Calculated in " + durationSequential + " ms");
+        sequentialStream.close();
 
         // 2. calculating the sum with a parallel stream
         start = System.currentTimeMillis();
-        Double sumParallel = randomDoubleList.parallelStream().reduce((aDouble, aDouble2) -> aDouble + aDouble2).get();
+        Stream<Double> parallelStream = randomDoubleList.parallelStream();
+        Double sumParallel = parallelStream.reduce((aDouble, aDouble2) -> aDouble + aDouble2).get();
         end = System.currentTimeMillis();
         long durationParallel = end - start;
         System.out.println("Parallel calculated sum = " + sumParallel);
         System.out.println("Calculated in " + durationParallel + " ms");
+        parallelStream.close();
 
         // Hint: rounding error because of addition
 
@@ -177,6 +201,57 @@ public class C_04_Streams {
         DoubleStream threeRandomNumbersBetween0And100 = new SplittableRandom().doubles(3, 0, 100);
         // actually, the above is [0, 100) = including 0 and < 100
     }
+
+    @Test
+    public void alteringDataSourceOfAStream() {
+        Queue<String> q = new LinkedList<>();
+        q.add("1");
+        q.add("2");
+        q.stream().peek(x -> {
+            System.out.println(x);
+            q.add(("NEW")); // ConcurrentModificationException
+        }).count();
+    }
+
+    @Test
+    public void nonInterference() {
+        // Although the elements of the underlying collection should not be changed by a stream, it sure is possible,
+        // see the code below. However, see http://docs.oracle.com/javase/8/docs/api/java/util/stream/package-summary.html#NonInterference,
+        // " For most data sources, preventing interference means ensuring that the data source is not modified at all
+        // during the execution of the stream pipeline"
+
+        SimpleClass simpleClass1 = new SimpleClass(1);
+        System.out.println(simpleClass1.getX()); // "1"
+
+        Stream<SimpleClass> stream = Stream.of(simpleClass1);
+        stream.peek(x -> {
+            x.setX(42);
+        }).forEach(System.out::println); // "42"
+
+        System.out.println(simpleClass1.getX()); // "42" -> the underlying object has been altered by the stream!
+    }
+
+    public class SimpleClass {
+        private int x;
+
+        public SimpleClass(int x) {
+            this.x = x;
+        }
+
+        public int getX() {
+            return x;
+        }
+
+        public void setX(int x) {
+            this.x = x;
+        }
+
+        @Override
+        public String toString() {
+            return ""+x;
+        }
+    }
+
 
     /*
 

@@ -25,20 +25,22 @@ public class C_05_ClassifyingStreams {
 
         System.out.println("With terminal operation:");
         // Ah yes - now we see intermediate operation stuff happening - thanks to the terminal operation! :)
-        Stream.of(1, 2, 3).peek(System.out::println).count();
+        Stream<Integer> integerStream = Stream.of(1, 2, 3);
+        integerStream.peek(System.out::println).count();
+        integerStream.close();
 
         // Little hint: You now know the intermediate operation peek(). It let's you output your stream without
         // ending it, not like forEach(System.out::println). Very handy for having a peek within your stream.
     }
 
     @Test
-    public void terminalOperationsCloseStream() {
+    public void streamsCanNotBeOperatedUponAfterTerminalOperation() {
         Stream<Integer> stream = Stream.of(1, 2, 3);
 
-        // operation possible because stream is not closed:
+        // operation possible because stream has not been operated upon:
         stream.peek(System.out::println).reduce(Integer::sum).get();
 
-        // operation NOT possible because stream is closed:
+        // operation NOT possible because stream has been operated upon:
         stream.reduce(Integer::sum).get();
     }
 
