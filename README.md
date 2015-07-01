@@ -1,6 +1,8 @@
 Java 8 Workshop
 ==============
 
+[![Build Status](https://api.shippable.com/projects/5593645bedd7f2c0524cb0ba/badge/master)](https://app.shippable.com/projects/5593645bedd7f2c0524cb0ba/builds/latest)
+
 Meta: About the workshop
 --------------------------
 The workshop is an internal event for my coworkers. Target audience are experienced Java developers who are 
