@@ -10,7 +10,7 @@
 
     <!-- Properties -->
     <properties>
-        <java.version>1.8</java.version>
+        <java.version>1.8.45</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.build.resourcesEncoding>windows-1252</project.build.resourcesEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
