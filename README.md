@@ -1,7 +1,11 @@
 Java 8 Workshop
 ==============
 
+[Shippable status] (https://app.shippable.com/projects/5593645bedd7f2c0524cb0ba):
 [![Build Status](https://api.shippable.com/projects/5593645bedd7f2c0524cb0ba/badge/master)](https://app.shippable.com/projects/5593645bedd7f2c0524cb0ba/builds/latest)
+
+[Travis status](https://travis-ci.org/stevenschwenke/Java8Workshop):
+[![Build Status](https://travis-ci.org/stevenschwenke/Java8Workshop.svg?branch=master)](https://travis-ci.org/stevenschwenke/Java8Workshop)
 
 Meta: About the workshop
 --------------------------
