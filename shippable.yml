@@ -5,9 +5,15 @@ language: java
 jdk:
     - oraclejdk8
 
+before_install:
+    - apt-get update
+    - apt-get install -y maven
 
-# Use JDK 8u45. The above line just causes the use of a minor version of Java 8.
-addons:
-  apt:
-    packages:
-      - oracle-java8-installer
+before_script:
+    - if [[ $SHIPPABLE_JDK_VERSION == "oraclejdk8" ]] ; then export JAVA_HOME="/usr/lib/jvm/java-8-oracle"; export PATH="$PATH:/usr/lib/jvm/java-8-oracle/bin"; export java_path="/usr/lib/jvm/java-8-oracle/jre/bin/java"; fi
+    - update-alternatives --set java $java_path
+    - java -version
+
+after_success:
+    - mvn clean cobertura:cobertura
+    - mvn test
