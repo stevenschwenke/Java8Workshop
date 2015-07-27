@@ -33,5 +33,11 @@ public class C_11_MissionControl {
         1. (within MissionControl) Right-Click in JVM-Browser -> Start Flight Recording
         2. Range Slider
         3. Code -> Hot Methods
+
+        HEAP DUMP ANALYSIS
+        ===================
+
+        1. Install experimental plugin JOverflow via Help -> Install New Software -> Heap Analysis -> JOverflow Heap Analyzer
+        2. Right Click on Application -> Dump Heap
      */
 }
