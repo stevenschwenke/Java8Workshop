@@ -46,6 +46,9 @@ public class C_01_FunctionalInterfacesAndLambdas {
         // implemented with lambdas. Yes, that is kind of cool as you will see!
 
         // Lambdas = closures = function literals = lambda expressions
+        // Lambdas are a description of functionality that is executed later ("deferred execution") by another
+        // part of the code. That code decides if and under which circumstances the lambda is called. That
+        // way, the functionality can be called multiple times.
 
         SlightlyMoreSophisticatedFunctionalInterface impl = null;
 
