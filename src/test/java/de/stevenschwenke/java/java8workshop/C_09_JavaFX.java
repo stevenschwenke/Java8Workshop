@@ -30,7 +30,8 @@ import static javafx.beans.binding.Bindings.when;
 import static org.junit.Assert.assertEquals;
 
 /**
- * The official Java GUI framework, JavaFX, also got some new features with Java 8.
+ * The official Java GUI framework, JavaFX, also got some new features with Java 8. For a more
+ * detailed workshop, have a look at https://github.com/stevenschwenke/JavaFXWorkshop.
  */
 public class C_09_JavaFX extends Application {
 
