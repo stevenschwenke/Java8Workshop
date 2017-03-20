@@ -64,10 +64,11 @@ public class C_13_Fancy_Stream_Migration_Patterns {
      */
     @Test
     public void anyMatchPattern() {
-        Boolean neueMarkeGefunden = false;
+        boolean neueMarkeGefunden = false;
         for(DummyFruit DummyFruit : dummyFruits.values()) {
-            if("Baby Banana".equals(DummyFruit.getName()))
+            if("Baby Banana".equals(DummyFruit.getName())) {
                 neueMarkeGefunden = true;
+            }
         }
         assertTrue(neueMarkeGefunden);
 
@@ -79,8 +80,6 @@ public class C_13_Fancy_Stream_Migration_Patterns {
         //Better and sexier code
         assertTrue(dummyFruits.values().stream().anyMatch(DummyFruit -> "Baby Banana".equals(DummyFruit.getName())));
     }
-
-    //More Patterns to come
 
 
 
