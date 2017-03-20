@@ -17,7 +17,7 @@ import static org.junit.Assert.assertTrue;
  * just put a stream in your favorite IDE (preferably IntelliJ IDEA ;p) and use auto-completion. If there is a method
  * that sounds like your use case, it will probably work.
  *
- * @author dmitrij.drandarov
+ * @author dmitrij-drandarov
  * @since 14 Feb 17
  */
 public class C_13_Fancy_Stream_Migration_Patterns {
@@ -58,19 +58,19 @@ public class C_13_Fancy_Stream_Migration_Patterns {
     }
 
     /**
-     * Just as simple as the one above, this is basically a contains check that incorportates some sort of field of the
+     * Just as simple as the one above, this is basically a contains check that incorporates some sort of field of the
      * pojo so a simple {@link java.util.List#contains(Object)} won't do it. There are also other kinds of data models
      * that don't include any kind of containment-check.
      */
     @Test
     public void anyMatchPattern() {
-        boolean neueMarkeGefunden = false;
+        boolean fruitFound = false;
         for(DummyFruit DummyFruit : dummyFruits.values()) {
             if("Baby Banana".equals(DummyFruit.getName())) {
-                neueMarkeGefunden = true;
+                fruitFound = true;
             }
         }
-        assertTrue(neueMarkeGefunden);
+        assertTrue(fruitFound);
 
         /*
             | | | | | | |

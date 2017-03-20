@@ -12,7 +12,7 @@ import static org.junit.Assert.assertNotNull;
 /**
  * Those examples are from a project I'm working in.
  *
- * @author dmitrij.drandarov
+ * @author dmitrij-drandarov
  * @since 14 Feb 17
  */
 public class C_13_Stream_Best_Practice {
@@ -40,14 +40,14 @@ public class C_13_Stream_Best_Practice {
     @Test
     void mistakesWithOptionals() {
         //Meh.
-        DummyFruit foundMarktGruppe1 = dummyFruits.values().stream()
+        DummyFruit foundFruit1 = dummyFruits.values().stream()
                 .filter(dummyFruit -> "Baby Banana".equals(dummyFruit.getName())).findFirst().get();
-        assertNotNull(foundMarktGruppe1);                                                    //^ unchecked
+        assertNotNull(foundFruit1);                                                    //^ unchecked
 
         //Better
-        DummyFruit foundMarktGruppe2 = dummyFruits.values().stream()
+        DummyFruit foundFruit2 = dummyFruits.values().stream()
                 .filter(dummyFruit -> "Baby Banana".equals(dummyFruit.getName())).findFirst().orElse(null);
-        assertNotNull(foundMarktGruppe2);                                                    //^ save and readable
+        assertNotNull(foundFruit2);                                                    //^ save and readable
     }
 
 
