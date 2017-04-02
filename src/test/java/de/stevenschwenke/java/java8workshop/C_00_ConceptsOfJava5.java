@@ -43,7 +43,7 @@ public class C_00_ConceptsOfJava5 {
     }
 
     @Test
-    public void loopsInJava12And15(){
+    public void loopsInJava1_2And1_5(){
 
         // Java 1.2
         List list = new ArrayList(Arrays.asList(1, 2, 3));
