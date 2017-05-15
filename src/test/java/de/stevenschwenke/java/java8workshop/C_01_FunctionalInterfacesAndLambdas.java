@@ -95,12 +95,12 @@ public class C_01_FunctionalInterfacesAndLambdas {
         SlightlyMoreSophisticatedFunctionalInterface impl = (a, b) -> {
 
             // Works because the reference of this string is not changed, it stays "effectively final":
-            string.replace("my", "your");
+            String replacedString = string.replace("my", "your");
 
-            // Doesn't work because the reference of the string would be changed:
+            // Doesn't work because the value of the reference of the string would be changed:
             // string = "asdf";
 
-            // Doesn't work either because, again, the reference would be changed:
+            // Doesn't work either because the value would be changed:
             //  x = 5;
 
             // However, local variables can be read without problems because reading doesn't change their reference:
@@ -125,7 +125,6 @@ public class C_01_FunctionalInterfacesAndLambdas {
             // A Lambda becomes an instance of the class it's defined in. During construction of this instance, a
             // reference to the defining instance is given via constructor. Hence, Lambdas can use member variables.
             // If a Lambda uses local variables, they get passed into the constructor as well and are accessible also.
-            // Because the needed arguments for creating a Lambda are only known at runtime, invokedynamic is used.
 
             return 0;
         };
