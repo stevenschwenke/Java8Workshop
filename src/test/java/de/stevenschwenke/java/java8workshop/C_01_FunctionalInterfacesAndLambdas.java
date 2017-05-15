@@ -1,9 +1,5 @@
 package de.stevenschwenke.java.java8workshop;
 
-import de.stevenschwenke.java.java8workshop.DeepThought;
-import de.stevenschwenke.java.java8workshop.FunctionalInterfaceGen1;
-import de.stevenschwenke.java.java8workshop.SimpleFunctionalInterface;
-import de.stevenschwenke.java.java8workshop.SlightlyMoreSophisticatedFunctionalInterface;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -23,6 +19,8 @@ import static org.junit.Assert.assertEquals;
  * Yeah, now we know what's going on! Well, not quite yet. Let's work through this baby step by baby step.
  */
 public class C_01_FunctionalInterfacesAndLambdas {
+
+    private int instanceVariable;
 
     /**
      * Functional interfaces are normal interfaces but must only have abstract one method.
@@ -85,21 +83,58 @@ public class C_01_FunctionalInterfacesAndLambdas {
     }
 
     /**
-     * Lambda expressions must be effectively final.
+     * Local variables used in Lambda expressions must be effectively final.
      */
     @Test
-    public void effectivelyFinal() {
+    public void localVariablesHaveToBeEffectivelyFinal() {
 
         int x = 3;
 
+        String string = "my string";
+
         SlightlyMoreSophisticatedFunctionalInterface impl = (a, b) -> {
 
-            //  x = 5; // NOPE! But can be used within this method (just readable).
+            // Works because the reference of this string is not changed, it stays "effectively final":
+            string.replace("my", "your");
 
-            return a + b;
+            // Doesn't work because the reference of the string would be changed:
+            // string = "asdf";
+
+            // Doesn't work either because, again, the reference would be changed:
+            //  x = 5;
+
+            // However, local variables can be read without problems because reading doesn't change their reference:
+            return a + b + x;
         };
 
         assertEquals(3, impl.sumItUp(1, 2));
+    }
+
+    @Test
+    public void lambdasHaveAccessToMembersOfTheirSurroundingClasses() {
+
+        SimpleFunctionalInterface myInterfaceImpl = () -> {
+
+            // Here, a lambda changes an instance variable of it's defining class:
+
+            System.out.println(this.toString() + " now changing instanceVariable. Old value: " + instanceVariable);
+            instanceVariable = (int) (Math.random() * 1000);
+            System.out.println(this.toString() + " changed instanceVariable. New value: " + instanceVariable);
+
+            // Explanation:
+            // A Lambda becomes an instance of the class it's defined in. During construction of this instance, a
+            // reference to the defining instance is given via constructor. Hence, Lambdas can use member variables.
+            // If a Lambda uses local variables, they get passed into the constructor as well and are accessible also.
+            // Because the needed arguments for creating a Lambda are only known at runtime, invokedynamic is used.
+
+            return 0;
+        };
+
+        System.out.println("instanceVariable = " + instanceVariable);
+        myInterfaceImpl.returnAnswerToUltimateQuestion();
+        System.out.println("instanceVariable = " + instanceVariable);
+        myInterfaceImpl.returnAnswerToUltimateQuestion();
+        System.out.println("instanceVariable = " + instanceVariable);
     }
 
     /**
