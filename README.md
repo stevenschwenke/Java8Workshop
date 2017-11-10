@@ -7,8 +7,6 @@ Shippable status:
 Travis status:
 [![Build Status](https://travis-ci.org/stevenschwenke/Java8Workshop.svg?branch=master)](https://travis-ci.org/stevenschwenke/Java8Workshop)
 
-[![Dependency Status](https://www.versioneye.com/user/projects/55a8fd323065350020000139/badge.svg?style=flat)](https://www.versioneye.com/user/projects/55a8fd323065350020000139)
-
 Meta: About the workshop
 --------------------------
 The workshop is an internal event for my coworkers. Target audience are experienced Java developers who are 
